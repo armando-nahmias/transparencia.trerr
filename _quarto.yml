@@ -1,0 +1,40 @@
+project:
+  type: website
+
+website:
+  title: "Portal da Transparência"
+  navbar:
+    right:
+      - href: index.qmd
+        text: Início
+      - href: sobre.qmd
+        text: Sobre
+      - text: Seções
+        menu: 
+          - href: 01.gestao.qmd
+            text: 01. Gestão
+          - href: 02.sessoes.qmd
+            text: 02. Audiências e Sessões
+          - href: 03.sic.qmd
+            text: 03. Serviço de Informação ao Cidadão
+          - href: 04.ouvidoria.qmd
+            text: 04. Ouvidoria
+          - href: 05.stic.qmd
+            text: 05. Tecnologia da Informação e Comunicação
+          - href: 06.orcamento.qmd
+            text: 06. Gestão Orçamentária
+          - href: 07.contratos.qmd
+            text: 07. Licitações, Contratos e Instrumentos de Cooperação
+          - href: 08.pessoas.qmd
+            text: 08. Gestão de Pessoas
+          - href: 09.auditoria.qmd
+            text: 09. Auditoria e Prestação de Contas
+          - href: 10.sustentabilidade.qmd
+            text: 10. Sustentabilidade e Acessibilidade
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+

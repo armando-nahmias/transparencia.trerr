@@ -1,0 +1,38 @@
+# Estamos trabalhando para sua maior informação
+![Página em Construção](../imagens/em.contrucao.jpg)
+
+::: {#info style="background-color:#F0F8FF; padding: 15px; border-left: 5px solid #0096D6;"}
+## Estamos trabalhando para trazer mais transparência para você!
+
+O Tribunal Regional Eleitoral de Roraima (TRERR) está comprometido em fornecer um acesso aberto e transparente às informações. Atualmente, estamos no processo de desenvolvimento e aprimoramento do nosso Portal da Transparência.
+:::
+
+### O que esperar?
+
+::: {#expect style="background-color:#FFFEE0; padding: 15px; border-left: 5px solid #FFD700;"}
+Nossa equipe está trabalhando diligentemente para garantir que todas as seções do portal sejam informativas, acessíveis e fáceis de navegar. Estamos elaborando conteúdos detalhados sobre nossa gestão administrativa, financeira, jurisdicional, entre outros aspectos importantes de nossa atuação.
+:::
+
+### Quando estará completo?
+
+::: {#complete style="background-color:#E8F5E9; padding: 15px; border-left: 5px solid #4CAF50;"}
+Estamos fazendo progressos significativos e esperamos ter todas as seções do portal disponíveis em breve. Nosso objetivo é não apenas cumprir, mas exceder os padrões de transparência e acessibilidade.
+:::
+
+### Enquanto isso...
+
+::: {#meanwhile style="background-color:#F3E5F5; padding: 15px; border-left: 5px solid #AB47BC;"}
+Agradecemos sua paciência e compreensão durante este período de desenvolvimento. Se você tiver perguntas específicas ou precisar de informações que ainda não estão disponíveis no portal, por favor, não hesite em entrar em contato conosco através do nosso [Serviço de Informação ao Cidadão (SIC)](03.sic.qmd).
+:::
+
+### Mantenha-se Informado
+
+::: {#informed style="background-color:#E3F2FD; padding: 15px; border-left: 5px solid #2196F3;"}
+Para receber atualizações sobre o progresso do portal e ser notificado quando novas seções forem lançadas, convidamos você a nos seguir nas redes sociais.
+:::
+
+## Agradecimento
+
+::: {#thanks style="background-color:#E0F7FA; padding: 15px; border-left: 5px solid #00BCD4;"}
+Agradecemos seu interesse e apoio na promoção da transparência e da participação cidadã. Estamos ansiosos para oferecer um portal completo que atenda às suas necessidades de informação.
+:::

@@ -1,0 +1,26 @@
+
+# 65. Anexo VI: Servidores Efetivos, Comissionados, Temporários e Terceirizados
+
+## 65.1. Servidores efetivos, comissionados e temporários
+
+Texto e informações sobre servidores efetivos, comissionados e temporários.
+
+## 65.2. Terceirizados
+
+Trata-se da divulgação da relação completa dos empregados de empresas contratadas, em exercício nos órgãos, conforme art. 3º, IV, da Resolução CNJ nº 102/2009.
+A atualização do Anexo V ocorre anualmente ou sempre que há modificação das relações.
+
+Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados do TRERR.
+
+
+```{r echo=FALSE}
+
+source('item.65.3.R')
+
+tabela
+
+
+```
+
+A tabela de terceirizados pode ser [baixada em pdf](item.65.3.terceirizados.pdf) ou num [arquivo csv](item.65.3.terceirizados.csv).
+

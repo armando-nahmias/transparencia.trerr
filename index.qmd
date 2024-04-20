@@ -1,0 +1,64 @@
+---
+title: "Transparência TRERR"
+---
+
+# Bem-vindo ao Portal da Transparência do TRERR
+
+O Tribunal Regional Eleitoral de Roraima (TRERR) reconhece a importância fundamental da transparência e do acesso à informação como pilares para fortalecer a democracia e promover a confiança dos cidadãos em nossa instituição. Estamos comprometidos em garantir que este espaço seja uma fonte clara e abrangente de informações sobre as operações e processos do tribunal.
+
+## Nosso Compromisso
+
+Desenvolvemos cuidadosamente esta seção do nosso site para promover uma cultura de transparência e prestação de contas. Nosso objetivo é capacitar os cidadãos a participar ativamente do processo democrático, fornecendo:
+
+-   **Informações Institucionais**: Estrutura organizacional, responsáveis pelas unidades, planejamentos, legislações próprias e mais.
+-   **Atividade Judiciária e Administrativa**: Dados sobre sessões plenárias, ao vivo, relatorias, pautas, decisões, além de informações de receitas, despesas, recursos humanos, licitações, contratos e obras.
+-   **Transparência em Gestão**: Detalhes sobre gestão orçamentária, licitações, contratos, instrumentos de cooperação, gestão de pessoas, auditoria, prestação de contas, sustentabilidade e acessibilidade.
+-   **Acesso e Participação**: Seções dedicadas ao Serviço de Informação ao Cidadão, Ouvidoria, Tecnologia da Informação e Comunicação, além de audiências e sessões.
+
+## O Que Você Encontrará Aqui
+
+O Portal da Transparência é um site de acesso livre que disponibiliza informações claras e compreensíveis, essenciais para a promoção da integridade, confiança e eficiência nas instituições. Ele é uma ferramenta vital que:
+
+-   Capacita os cidadãos;
+-   Fortalece a democracia;
+-   Contribui para organizações mais responsáveis e alinhadas aos interesses da coletividade.
+
+## Recursos Disponíveis:
+
+-   Consultas baseadas em sistemas informatizados com série histórica de pelo menos 3 anos.
+-   Filtros de busca, geração de gráficos estatísticos e relatórios.
+-   Possibilidade de baixar os resultados das consultas em formatos livres.
+
+## Atualização e Acesso
+
+Estamos comprometidos em manter esta página atualizada regularmente, apresentando as informações de forma clara e acessível. Encorajamos todos a explorar o portal e a utilizar as ferramentas disponíveis para uma compreensão mais profunda das atividades do TRERR.
+
+## Sua Participação
+
+Acreditamos que um judiciário transparente é um direito de todos e um pilar essencial para a confiança pública. Convidamos você a participar ativamente, seja consultando regularmente o portal, seja enviando sugestões, críticas ou elogios. Sua participação é crucial para continuarmos aprimorando nossas práticas de transparência.
+
+## Fale Conosco
+
+Para dúvidas, sugestões ou solicitações específicas, entre em contato através do nosso [Serviço de Informação ao Cidadão (SIC)](00.diversos/pagina.em.construcao.qmd) ou da [Ouvidoria](00.diversos/pagina.em.construcao.qmd). Sua voz é essencial para nós.
+
+# Acesso rápido:
+
+01.  [Gestão](00.diversos/pagina.em.construcao.qmd);
+
+02.  [Audiências e Sessões](00.diversos/pagina.em.construcao.qmd);
+
+03.  [Serviço de Informação ao Cidadão](00.diversos/pagina.em.construcao.qmd);
+
+04.  [Ouvidoria](00.diversos/pagina.em.construcao.qmd);
+
+05.  [Tecnologia da Informação e Comunicação](00.diversos/pagina.em.construcao.qmd);
+
+06.  [Gestão Orçamentária](00.diversos/pagina.em.construcao.qmd);
+
+07.  [Licitações, Contratos e Instrumentos de Cooperação](07.contratos.qmd);
+
+08.  [Gestão de Pessoas](00.diversos/pagina.em.construcao.qmd);
+
+09.  [Auditoria e Prestação de Contas](00.diversos/pagina.em.construcao.qmd); e
+
+10. [Sustentabilidade e Acessibilidade](00.diversos/pagina.em.construcao.qmd).
