@@ -1,0 +1,38 @@
+# Quinta Seção: Tecnologia da Informação e Comunicação
+
+A seção de Tecnologia da Informação e Comunicação do Tribunal Regional Eleitoral de Roraima (TRERR) reflete nosso compromisso com a inovação, a segurança da informação e a transparência. Aqui, você encontrará informações sobre nossas iniciativas, planos e serviços que visam aprimorar a gestão tecnológica e promover o acesso à informação de forma eficiente e aberta.
+
+## 28. Plano Diretor de Tecnologia da Informação e Comunicação (PDTIC) Vigente
+
+O TRERR publica seu Plano Diretor de Tecnologia da Informação e Comunicação (PDTIC) vigente, delineando as estratégias, objetivos e ações previstas para a gestão e uso eficaz das TICs.
+
+[Consulte o PDTIC Vigente](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 05.tic/28.pdtic.vigente.qmd -->
+
+## 29. Plano de Contratações de Soluções de TIC (PAC-TIC) Vigente
+
+Disponibilizamos o Plano de Contratações de Soluções de TIC vigente, que detalha as necessidades de contratação de soluções tecnológicas para suportar as operações e iniciativas do tribunal.
+
+[Veja o Plano de Contratações de Soluções de TIC](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 05.tic/29.plano.contratacoes.tic.qmd -->
+
+## 30. Painel Visual de Informações de TIC
+
+O TRERR oferece um painel visual de informações relacionadas à Tecnologia da Informação e Comunicação, permitindo aos usuários filtrar, consultar e extrair dados públicos de forma intuitiva e interativa.
+
+[Acesse o Painel Visual de Informações de TIC](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 05.tic/30.painel.informacoes.tic.qmd -->
+
+## 31. Extração de Relatórios em Formatos Eletrônicos
+
+Nosso portal institucional possibilita a extração de relatórios em diversos formatos eletrônicos, preferencialmente abertos e não proprietários, como planilhas e texto (CSV, RTF), facilitando a análise das informações por parte dos usuários.
+
+[Extraia Relatórios em Formatos Eletrônicos](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 05.tic/31.extracao.relatorios.formatos.eletronicos.qmd -->
+
+## 32. Acesso Automatizado por Sistemas Externos
+
+O portal institucional do TRERR possibilita o acesso automatizado por sistemas externos, como webservices ou APIs, em formatos abertos, estruturados e legíveis por máquina, promovendo a integração e a interoperabilidade dos dados.
+
+[Acesse Informações via Sistemas Externos](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 05.tic/32.acesso.automatizado.sistemas.externos.qmd -->

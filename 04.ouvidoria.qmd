@@ -1,0 +1,24 @@
+# Quarta Seção: Ouvidoria
+
+A Ouvidoria do Tribunal Regional Eleitoral de Roraima (TRERR) é um canal direto de comunicação entre o cidadão e a instituição, reforçando nosso compromisso com a transparência, a ética e a responsabilidade. Através da Ouvidoria, oferecemos serviços essenciais para o registro, o acompanhamento de denúncias e reclamações, além de possibilitar a avaliação dos serviços prestados. Confira abaixo como acessar esses serviços:
+
+## 25. Registro de Denúncias e Reclamações
+
+O TRERR facilita o registro de denúncias e reclamações por meio de um serviço acessível em nosso site. Este serviço é projetado para garantir que sua voz seja ouvida e que as questões apresentadas sejam tratadas de forma adequada e eficiente.
+
+[Registre Denúncias e Reclamações](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 04.ouvidoria/25.registro.denuncias.reclamacoes.qmd -->
+
+## 26. Acompanhamento de Denúncias e Reclamações
+
+Entendemos a importância do acompanhamento das denúncias e reclamações registradas. Por isso, oferecemos um serviço que permite acompanhar o status e a evolução da sua solicitação, garantindo transparência e agilidade no processo.
+
+[Acompanhe Denúncias e Reclamações](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 04.ouvidoria/26.acompanhamento.denuncias.reclamacoes.qmd -->
+
+## 27. Avaliação do Serviço de Registro de Denúncias e Reclamações
+
+A sua opinião é fundamental para nós. Disponibilizamos um serviço de avaliação para que você possa expressar sua satisfação com o processo de registro e tratamento de denúncias e reclamações. Utilize este serviço para nos ajudar a melhorar continuamente.
+
+[Avalie o Serviço de Registro de Denúncias e Reclamações](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 04.ouvidoria/27.avaliacao.servico.qmd -->

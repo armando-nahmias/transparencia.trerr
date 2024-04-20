@@ -39,26 +39,26 @@ Acreditamos que um judiciário transparente é um direito de todos e um pilar es
 
 ## Fale Conosco
 
-Para dúvidas, sugestões ou solicitações específicas, entre em contato através do nosso [Serviço de Informação ao Cidadão (SIC)](00.diversos/pagina.em.construcao.qmd) ou da [Ouvidoria](00.diversos/pagina.em.construcao.qmd). Sua voz é essencial para nós.
+Para dúvidas, sugestões ou solicitações específicas, entre em contato através do nosso [Serviço de Informação ao Cidadão (SIC)](03.sic.qmd) ou da [Ouvidoria](04.ouvidoria.qmd). Sua voz é essencial para nós.
 
 # Acesso rápido:
 
-01.  [Gestão](00.diversos/pagina.em.construcao.qmd);
+01.  [Gestão](01.gestao.qmd);
 
-02.  [Audiências e Sessões](00.diversos/pagina.em.construcao.qmd);
+02.  [Audiências e Sessões](02.sessoes.qmd);
 
-03.  [Serviço de Informação ao Cidadão](00.diversos/pagina.em.construcao.qmd);
+03.  [Serviço de Informação ao Cidadão](03.sic.qmd);
 
-04.  [Ouvidoria](00.diversos/pagina.em.construcao.qmd);
+04.  [Ouvidoria](04.ouvidoria.qmd);
 
-05.  [Tecnologia da Informação e Comunicação](00.diversos/pagina.em.construcao.qmd);
+05.  [Tecnologia da Informação e Comunicação](05.stic.qmd);
 
-06.  [Gestão Orçamentária](00.diversos/pagina.em.construcao.qmd);
+06.  [Gestão Orçamentária](06.orcamento.qmd);
 
 07.  [Licitações, Contratos e Instrumentos de Cooperação](07.contratos.qmd);
 
-08.  [Gestão de Pessoas](00.diversos/pagina.em.construcao.qmd);
+08.  [Gestão de Pessoas](08.pessoas.qmd);
 
-09.  [Auditoria e Prestação de Contas](00.diversos/pagina.em.construcao.qmd); e
+09.  [Auditoria e Prestação de Contas](09.auditoria.qmd); e
 
-10. [Sustentabilidade e Acessibilidade](00.diversos/pagina.em.construcao.qmd).
+10. [Sustentabilidade e Acessibilidade](10.sustentabilidade.qmd).

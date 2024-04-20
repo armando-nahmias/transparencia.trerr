@@ -1,0 +1,73 @@
+# Terceira Seção: Serviço de Informações ao Cidadão – SIC
+
+O Tribunal Regional Eleitoral de Roraima (TRERR) está comprometido em garantir a transparência e facilitar o acesso à informação para todos os cidadãos. Através do Serviço de Informações ao Cidadão (SIC), oferecemos diversos canais e serviços para assegurar que a população possa exercer seu direito de acesso à informação de forma eficaz e eficiente.
+
+## 15. Telefone das Unidades e Horários de Atendimento
+
+Disponibilizamos os telefones e os horários de atendimento de todas as nossas unidades para facilitar o seu contato conosco.
+
+[Consulte Telefones e Horários](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/15.telefones.horarios.qmd -->
+
+## 16. 'Serviço de Informações ao Cidadão' na Página Inicial
+
+Você encontrará facilmente o campo denominado ‘Serviço de Informações ao Cidadão’ em nossa página inicial, garantindo acesso rápido às informações sobre como solicitar dados.
+
+[Acesse o SIC na Página Inicial](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/16.sic.pagina.inicial.qmd -->
+
+## 17. Carta de Serviços ao Cidadão
+
+Nosso sítio eletrônico dispõe de uma seção dedicada à "Carta de Serviços ao Cidadão", onde apresentamos todos os serviços disponíveis ao público.
+
+[Veja a Carta de Serviços ao Cidadão](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/17.carta.servicos.qmd -->
+
+## 18. Órgão Responsável pelo SIC
+
+Identificamos claramente o órgão ou unidade orgânica responsável pelo Serviço de Informações ao Cidadão, facilitando sua comunicação direta.
+
+[Conheça o Órgão Responsável pelo SIC](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/18.orgao.responsavel.sic.qmd -->
+
+## 19. Atendimento Presencial no SIC
+
+Oferecemos indicação precisa em nosso site sobre como o cidadão pode entregar pessoalmente o pedido de acesso a informações em nossa unidade do SIC.
+
+[Informações sobre Atendimento Presencial](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/19.atendimento.presencial.qmd -->
+
+## 20. Envio Eletrônico de Pedidos ao SIC (e-SIC)
+
+Facilitamos o envio de pedidos de informação de forma eletrônica através do nosso e-SIC, garantindo praticidade e agilidade no acesso à informação.
+
+[Envie Pedidos de Informação Eletronicamente](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/20.esic.qmd -->
+
+## 21. Acompanhamento de Pedidos
+
+Nosso site oferece a possibilidade de acompanhamento posterior do pedido de acesso à informação, permitindo que você fique informado sobre o status do seu pedido.
+
+[Acompanhe seu Pedido de Informação](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/21.acompanhamento.pedidos.qmd -->
+
+## 22. Perguntas Frequentes (FAQ)
+
+Disponibilizamos uma seção de Respostas às Perguntas Mais Frequentes da Sociedade (FAQ), facilitando o acesso rápido às informações mais procuradas.
+
+[Consulte as Perguntas Frequentes](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/22.faq.qmd -->
+
+## 23. Relatório Estatístico Anual
+
+Publicamos anualmente um relatório estatístico contendo a quantidade de pedidos de informação recebidos, atendidos e indeferidos, além de informações genéricas sobre os solicitantes.
+
+[Veja o Relatório Estatístico Anual](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/23.relatorio.estatistico.qmd -->
+
+## 24. Principais Serviços de Atendimento ao Usuário
+
+Oferecemos links de acesso direto aos principais serviços de atendimento ao usuário, como o PJE, Balcão Virtual e Primeiro Atendimento/Juizados Especiais, facilitando o acesso aos nossos serviços jurisdicionais e administrativos.
+
+[Acesse os Principais Serviços](00.diversos/pagina.em.construcao.qmd)  
+<!-- Endereço original: 03.sic/24.servicos.atendimento.qmd -->
