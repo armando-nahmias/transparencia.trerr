@@ -1,0 +1,47 @@
+# Monitoramento
+
+Estamos comprometidos em manter este Portal atualizado regularmente, apresentando as informações de forma clara e acessível. Assim, abaixo é apresentada uma tabela com todos os itens incluídos no portal e a data em que os dados correspondentes foram atualizados.
+
+
+```{r include=FALSE}
+
+monitoramento <-
+          readr::read_rds('00.diversos/monitoramento.transparencia.rds') |> 
+          dplyr::arrange(Item)
+
+
+enderecos <- monitoramento$Endereco
+
+
+```
+
+
+
+```{r echo=FALSE}
+
+monitoramento |> 
+          dplyr::group_by(Atualizado) |> 
+          dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
+          kableExtra::kbl() |> 
+          kableExtra::kable_styling(full_width = FALSE)
+
+
+```
+
+Abaixo, é apresentada uma tabela com todos os dados incluídos no portal e a data em que os dados correspondentes foram atualizados.
+
+
+```{r echo=FALSE}
+#| column: page
+
+ monitoramento |>
+          dplyr::select(Item, Descrição, Atualizado) |>
+          kableExtra::kbl() |>
+          kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+          kableExtra::row_spec(0, align = 'c') |> 
+          kableExtra::column_spec(2, link = enderecos)
+
+
+
+```
+
