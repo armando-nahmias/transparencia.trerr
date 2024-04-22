@@ -1,3 +1,5 @@
+# setwd("~/Documents/repositorio/transparencia.trerr/08.pessoas")
+
 item <- '65.3'
 
 monitoramento <-
@@ -43,5 +45,4 @@ readr::write_csv2(dados, 'item.65.3.terceirizados.csv')
 
 kableExtra::save_kable(tabela, 'item.65.3.terceirizados.pdf')
 
-
-tabela
+kableExtra::save_kable(tabela, 'item.65.3.terceirizados.html')

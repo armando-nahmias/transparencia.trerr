@@ -29,5 +29,5 @@ tabela
 
 
 
-A tabela de terceirizados pode ser [baixada em pdf](item.65.3.terceirizados.pdf) ou num [arquivo csv](item.65.3.terceirizados.csv).
+A tabela de terceirizados pode ser [baixada em pdf](item.65.3.terceirizados.pdf), [em versão html](item.65.3.terceirizados.html) ou num [arquivo csv](item.65.3.terceirizados.csv).
 

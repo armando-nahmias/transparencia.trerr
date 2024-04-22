@@ -32,3 +32,11 @@ monitoramento[87, 8] = '08.pessoas/item.65.3.qmd'
 
 monitoramento <-
           readr::write_rds(monitoramento, '00.diversos/monitoramento.transparencia.rds')
+
+
+
+# Ajustando os formatos dos itens do monitoramento ------------------------
+
+
+monitoramento$Item <- as.numeric(monitoramento$Item)
+monitoramento$Atualizado <- lubridate::as_date(monitoramento$Atualizado)
