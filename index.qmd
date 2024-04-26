@@ -33,6 +33,8 @@ O Portal da Transparência é um site de acesso livre que disponibiliza informa�
 
 Estamos comprometidos em manter esta página atualizada regularmente, apresentando as informações de forma clara e acessível. Encorajamos todos a explorar o portal e a utilizar as ferramentas disponíveis para uma compreensão mais profunda das atividades do TRERR.
 
+Para acompanha a atualização dos dados inseridos neste portal, foi disponibilizada uma [página de monitoramento](00.monitoramento.qmd). 
+
 ## Sua Participação
 
 Acreditamos que um judiciário transparente é um direito de todos e um pilar essencial para a confiança pública. Convidamos você a participar ativamente, seja consultando regularmente o portal, seja enviando sugestões, críticas ou elogios. Sua participação é crucial para continuarmos aprimorando nossas práticas de transparência.

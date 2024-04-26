@@ -13,14 +13,21 @@ A atualização do Anexo V ocorre anualmente ou sempre que há modificação das
 Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados do TRERR.
 
 
-```{r echo=FALSE}
+```{r include=FALSE}
 
 source('item.65.3.R')
 
-tabela
+```
 
+
+```{r echo=FALSE}
+#| column: page
+
+tabela
 
 ```
 
-A tabela de terceirizados pode ser [baixada em pdf](item.65.3.terceirizados.pdf) ou num [arquivo csv](item.65.3.terceirizados.csv).
+
+
+A tabela de terceirizados pode ser [baixada em pdf](item.65.3.terceirizados.pdf), [em versão html](item.65.3.terceirizados.html) ou num [arquivo csv](item.65.3.terceirizados.csv).
 

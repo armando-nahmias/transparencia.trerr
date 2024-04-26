@@ -1,5 +1,5 @@
 # Estamos trabalhando para sua maior informação
-![Página em Construção](../imagens/em.contrucao.jpg)
+![Página em Construção](pagina.em.construcao.jpg)
 
 ::: {#info style="background-color:#F0F8FF; padding: 15px; border-left: 5px solid #0096D6;"}
 ## Estamos trabalhando para trazer mais transparência para você!
@@ -22,7 +22,7 @@ Estamos fazendo progressos significativos e esperamos ter todas as seções do p
 ### Enquanto isso...
 
 ::: {#meanwhile style="background-color:#F3E5F5; padding: 15px; border-left: 5px solid #AB47BC;"}
-Agradecemos sua paciência e compreensão durante este período de desenvolvimento. Se você tiver perguntas específicas ou precisar de informações que ainda não estão disponíveis no portal, por favor, não hesite em entrar em contato conosco através do nosso [Serviço de Informação ao Cidadão (SIC)](03.sic.qmd).
+Agradecemos sua paciência e compreensão durante este período de desenvolvimento. Se você tiver perguntas específicas ou precisar de informações que ainda não estão disponíveis no portal, por favor, não hesite em entrar em contato conosco através do nosso Serviço de Informação ao Cidadão (SIC).
 :::
 
 ### Mantenha-se Informado
