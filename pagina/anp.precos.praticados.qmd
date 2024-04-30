@@ -1,0 +1,30 @@
+
+# Preços Médios de Combustíveis
+
+
+```{r }
+#| echo: false
+#| message: false
+
+source('../src/funcoes.R')
+
+consultar.precos.medios.anp.semanal()
+
+# consultar.precos.medios.anp.mensal()
+
+```
+
+
+## Introdução
+
+Este relatório apresenta o preço médio dos combustíveis, apresentando informações relevantes sobre a média dos preços praticados.
+
+## Dados
+
+Os dados utilizados neste relatório foram obtidos do [sítio da ANP](https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/serie-historica-do-levantamento-de-precos).
+
+{{< include anp.precos.semanal.qmd >}}
+O relatório semanal pode ser [baixado em pdf](saida/precos.medios.semanal.pdf), [em versão html](saida/precos.medios.semanal.html) ou num [arquivo csv](saida/precos.medios.semanal.csv).
+
+{{< include anp.precos.mensal.qmd >}}
+O relatório semanal pode ser [baixado em pdf](saida/precos.medios.semanal.pdf), [em versão html](saida/precos.medios.semanal.html) ou num [arquivo csv](saida/precos.medios.semanal.csv).

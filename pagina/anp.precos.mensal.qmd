@@ -1,0 +1,40 @@
+## Relatório Semanal
+
+
+
+```{r }
+#| echo: false
+#| message: false
+
+dados <- readRDS('../rds/precos.medios.semanal.dados.rds')
+
+atualizacao <- dados[[1]]
+tabela <- dados[[2]]
+
+inicio <- unique(tabela$Inicio)
+fim <- unique(tabela$Fim)
+estado <- unique(tabela$Estado)
+municipio <- unique(tabela$Municipio)
+
+```
+
+
+
+Abaixo, segue tabela contendo os resultados das últimas pesquisas semanais relativos ao Levantamento de Preços de Combustíveis.
+
+Localidade: `r municipio`, `r estado`
+
+Período: **`r inicio`** a **`r fim`**
+
+```{r }
+#| echo: false
+
+tabela.selecionada <- tabela |>
+          dplyr::select(5, 7, 8)
+          
+
+
+kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+  
+
+```
