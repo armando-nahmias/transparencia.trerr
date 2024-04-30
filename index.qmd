@@ -33,7 +33,7 @@ O Portal da Transparência é um site de acesso livre que disponibiliza informa�
 
 Estamos comprometidos em manter esta página atualizada regularmente, apresentando as informações de forma clara e acessível. Encorajamos todos a explorar o portal e a utilizar as ferramentas disponíveis para uma compreensão mais profunda das atividades do TRERR.
 
-Para acompanha a atualização dos dados inseridos neste portal, foi disponibilizada uma [página de monitoramento](00.monitoramento.qmd). 
+Para acompanha a atualização dos dados inseridos neste portal, foi disponibilizada uma [página de monitoramento](pagina/monitoramento.qmd). 
 
 ## Sua Participação
 
@@ -41,26 +41,26 @@ Acreditamos que um judiciário transparente é um direito de todos e um pilar es
 
 ## Fale Conosco
 
-Para dúvidas, sugestões ou solicitações específicas, entre em contato através do nosso [Serviço de Informação ao Cidadão (SIC)](00.diversos/pagina.em.construcao.qmd) ou da [Ouvidoria](00.diversos/pagina.em.construcao.qmd). Sua voz é essencial para nós.
+Para dúvidas, sugestões ou solicitações específicas, entre em contato através do nosso [Serviço de Informação ao Cidadão (SIC)](pagina/pagina.em.construcao.qmd) ou da [Ouvidoria](pagina/pagina.em.construcao.qmd). Sua voz é essencial para nós.
 
 # Acesso rápido:
 
-01.  [Gestão](00.diversos/pagina.em.construcao.qmd);
+01.  [Gestão](pagina/pagina.em.construcao.qmd);
 
-02.  [Audiências e Sessões](00.diversos/pagina.em.construcao.qmd);
+02.  [Audiências e Sessões](pagina/pagina.em.construcao.qmd);
 
-03.  [Serviço de Informação ao Cidadão](00.diversos/pagina.em.construcao.qmd);
+03.  [Serviço de Informação ao Cidadão](pagina/pagina.em.construcao.qmd);
 
-04.  [Ouvidoria](00.diversos/pagina.em.construcao.qmd);
+04.  [Ouvidoria](pagina/pagina.em.construcao.qmd);
 
-05.  [Tecnologia da Informação e Comunicação](00.diversos/pagina.em.construcao.qmd);
+05.  [Tecnologia da Informação e Comunicação](pagina/pagina.em.construcao.qmd);
 
-06.  [Gestão Orçamentária](00.diversos/pagina.em.construcao.qmd);
+06.  [Gestão Orçamentária](pagina/pagina.em.construcao.qmd);
 
-07.  [Licitações, Contratos e Instrumentos de Cooperação](07.contratos.qmd);
+07.  [Licitações, Contratos e Instrumentos de Cooperação](pagina/contratos.qmd);
 
-08.  [Gestão de Pessoas](00.diversos/pagina.em.construcao.qmd);
+08.  [Gestão de Pessoas](pagina/pagina.em.construcao.qmd);
 
-09.  [Auditoria e Prestação de Contas](00.diversos/pagina.em.construcao.qmd); e
+09.  [Auditoria e Prestação de Contas](pagina/pagina.em.construcao.qmd); e
 
-10. [Sustentabilidade e Acessibilidade](00.diversos/pagina.em.construcao.qmd).
+10. [Sustentabilidade e Acessibilidade](pagina/pagina.em.construcao.qmd).
