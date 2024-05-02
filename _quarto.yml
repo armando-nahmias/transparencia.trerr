@@ -40,3 +40,5 @@ format:
     css: configuracao/styles.css
     toc: true
     
+execute:
+  freeze: auto
