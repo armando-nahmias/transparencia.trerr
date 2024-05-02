@@ -27,7 +27,7 @@ contratos.lista |>
 Abaixo segue a relação completa dos contratos ativos do Tribunal Regional Eleitoral de Roraima.
 
 ```{r }
-#| column: screen
+#| column: page
 #| echo: false
 
 contratos.tabela
