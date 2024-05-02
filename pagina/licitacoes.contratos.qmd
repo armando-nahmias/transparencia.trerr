@@ -8,43 +8,37 @@ O Tribunal Regional Eleitoral de Roraima (TRERR) se compromete com a máxima tra
 
 Disponibilizamos a íntegra dos Estudos Técnicos Preliminares das contratações, essenciais para a compreensão do processo licitatório, a menos que sejam considerados sigilosos.
 
-[Consulte os Estudos Técnicos Preliminares](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/41.estudos.tecnicos.preliminares.qmd -->
+[Consulte os Estudos Técnicos Preliminares](pagina.em.construcao.qmd)
 
 ### 42. Mapa Comparativo de Preços
 
 Publicamos o Mapa Comparativo de Preços, documento conclusivo sobre o Valor Estimado da Licitação, exceto quando sigiloso.
 
-[Veja o Mapa Comparativo de Preços](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/42.mapa.comparativo.preços.qmd -->
+[Veja o Mapa Comparativo de Preços](pagina.em.construcao.qmd)
 
 ### 43. Editais de Licitação e Anexos
 
 A íntegra dos editais de licitação e seus respectivos anexos, incluindo projeto básico ou termo de referência e minutas, são disponibilizados para consulta.
 
-[Consulte os Editais de Licitação](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/43.editais.licitacao.anexos.qmd -->
+[Consulte os Editais de Licitação](pagina.em.construcao.qmd)
 
 ### 44-45. Questionamentos e Impugnações
 
 Publicamos todos os questionamentos e impugnações apresentados entre a publicação do edital e a abertura da sessão pública, garantindo a transparência do processo.
 
-[Veja Questionamentos e Impugnações](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/44.questionamentos.impugnações.qmd -->
+[Veja Questionamentos e Impugnações](pagina.em.construcao.qmd)
 
 ### 46. Vencedor da Licitação
 
 Divulgamos o nome do vencedor de cada licitação, reforçando nosso compromisso com a transparência.
 
-[Consulte o Vencedor da Licitação](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/46.vencedor.licitacao.qmd -->
+[Consulte o Vencedor da Licitação](pagina.em.construcao.qmd)
 
 ### 47-49. Contratos e Termos Aditivos
 
 A íntegra dos contratos firmados e dos Termos Aditivos assinados é disponibilizada, permitindo o acompanhamento e a fiscalização dos acordos realizados.
 
-[Consulte Contratos e Termos Aditivos](contratos.qmd)
-<!-- Endereço original: 07.licitacoes/47.contratos.termos.aditivos.qmd -->
+Para uma visão geral, pode-se [consultar a relação completa dos contratos ativos](contratos.qmd).
 
 #### Lista de Terceirizados
 
@@ -57,11 +51,9 @@ terceirizados <- readr::read_rds('../rds/terceirizados.rds')
 
 O TRERR possui `r length(contratos.terceirizados)` contratos de terceirização, o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na lista de terceirizados constante da [página de servidores](servidores.qmd).
 
-
 #### Preços Médios de Combustíveis
 
 No contrato de aquisição de combustível, o valor a ser pago tem como referência os valores pesquisados pela Agência Nacional de Petróleo. Os detalhes podem ser consultados nas [tabelas de preços médios praticados](anp.precos.praticados.qmd).
-
 
 ## Dispensas e Inexigibilidades de Licitação
 
@@ -69,8 +61,7 @@ No contrato de aquisição de combustível, o valor a ser pago tem como referên
 
 Publicamos a íntegra do Projeto Básico, Termo de Referência e a autorização da dispensa ou inexigibilidade de licitação, exceto quando considerados sigilosos.
 
-[Veja Projeto Básico e Autorização](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/50.projeto.basico.autorizacao.qmd -->
+[Veja Projeto Básico e Autorização](pagina.em.construcao.qmd)
 
 ## Instrumentos de Cooperação
 
@@ -78,5 +69,4 @@ Publicamos a íntegra do Projeto Básico, Termo de Referência e a autorização
 
 A íntegra dos instrumentos de cooperação vigentes é disponibilizada, exceto os sigilosos, nos termos da legislação, fortalecendo a parceria e a colaboração institucional.
 
-[Consulte os Instrumentos de Cooperação](pagina.em.construcao.qmd)  
-<!-- Endereço original: 07.licitacoes/52.instrumentos.cooperação.qmd -->
+[Consulte os Instrumentos de Cooperação](pagina.em.construcao.qmd)

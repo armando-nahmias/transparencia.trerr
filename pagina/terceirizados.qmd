@@ -1,9 +1,8 @@
 ## 65.2. Terceirizados
 
 Trata-se da divulgação da relação completa dos empregados de empresas contratadas, em exercício nos órgãos, conforme art. 3º, IV, da Resolução CNJ nº 102/2009.
-A atualização do Anexo V ocorre anualmente ou sempre que há modificação das relações.
 
-Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados do TRERR.
+A atualização do Anexo V ocorre anualmente ou sempre que há modificação das relações.
 
 
 ```{r }
@@ -21,6 +20,8 @@ terceirizados.tabela <- terceirizados.tabela.gerar()
 
 ```
 
+Em resumo, os terceirizados estão distribuídos da seguinte forma:
+
 
 ```{r }
 #| echo: false
@@ -33,6 +34,7 @@ tercerizados.lista |>
 ```
 
 
+Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados do TRERR.
 
 
 ```{r }
