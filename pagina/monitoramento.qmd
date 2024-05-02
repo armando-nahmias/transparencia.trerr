@@ -7,7 +7,8 @@ Estamos comprometidos em manter este Portal atualizado regularmente, apresentand
 
 monitoramento <-
           readr::read_rds('../rds/monitoramento.rds') |> 
-          dplyr::arrange(Item)
+          dplyr::arrange(Item) |> 
+          dplyr::mutate(Atualizado = ifelse(is.na(Atualizado), NA, format(Atualizado, '%d/%m/%Y')))
 
 
 enderecos <- monitoramento$Endereco
@@ -22,8 +23,7 @@ enderecos <- monitoramento$Endereco
 monitoramento |> 
           dplyr::group_by(Atualizado) |> 
           dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
-          kableExtra::kbl() |> 
-          kableExtra::kable_styling(full_width = FALSE)
+          kableExtra::kbl()
 
 
 ```

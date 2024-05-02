@@ -1,5 +1,5 @@
 
-# Preços Médios de Combustíveis
+# 47.1. Preços Médios de Combustíveis
 
 
 ```{r }
@@ -8,9 +8,9 @@
 
 source('../src/funcoes.R')
 
-consultar.precos.medios.anp.semanal()
+consultar.precos.combustivel.semanal()
 
-# consultar.precos.medios.anp.mensal()
+consultar.precos.combustivel.mensal()
 
 ```
 
@@ -23,8 +23,81 @@ Este relatório apresenta o preço médio dos combustíveis, apresentando inform
 
 Os dados utilizados neste relatório foram obtidos do [sítio da ANP](https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/serie-historica-do-levantamento-de-precos).
 
-{{< include anp.precos.semanal.qmd >}}
-O relatório semanal pode ser [baixado em pdf](saida/precos.medios.semanal.pdf), [em versão html](saida/precos.medios.semanal.html) ou num [arquivo csv](saida/precos.medios.semanal.csv).
 
-{{< include anp.precos.mensal.qmd >}}
-O relatório semanal pode ser [baixado em pdf](saida/precos.medios.semanal.pdf), [em versão html](saida/precos.medios.semanal.html) ou num [arquivo csv](saida/precos.medios.semanal.csv).
+## Relatório Semanal
+
+```{r }
+#| echo: false
+#| message: false
+
+dados <- readRDS('../rds/precos.medios.semanal.dados.rds')
+
+atualizacao <- dados[[1]]
+tabela <- dados[[2]]
+
+inicio <- unique(tabela$Inicio)
+fim <- unique(tabela$Fim)
+estado <- unique(tabela$Estado)
+municipio <- unique(tabela$Municipio)
+
+```
+
+Abaixo, segue tabela contendo os resultados das últimas pesquisas semanais relativos ao Levantamento de Preços de Combustíveis.
+
+Localidade: `r municipio`, `r estado`
+
+Período: **`r inicio`** a **`r fim`**
+
+```{r }
+#| echo: false
+
+tabela.selecionada <- tabela |>
+          dplyr::select(5, 7, 8)
+          
+
+
+kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+  
+
+```
+
+O relatório semanal pode ser [baixado em pdf](../saida/precos.medios.semanal.pdf), [em versão html](../saida/precos.medios.semanal.html) ou num [arquivo csv](../saida/precos.medios.semanal.csv).
+
+## Relatório Mensal
+
+
+
+```{r }
+#| echo: false
+#| message: false
+
+dados <- readRDS('../rds/precos.medios.mensal.dados.rds')
+
+atualizacao <- dados[[1]]
+tabela <- dados[[2]]
+
+periodo <- unique(tabela$Periodo)
+estado <- unique(tabela$Estado)
+municipio <- unique(tabela$Municipio)
+
+```
+
+
+Abaixo, segue tabela contendo a última média mensal de preços relativos ao Levantamento de Preços de Combustíveis.
+
+Localidade: `r municipio`, `r estado`
+
+Período: **`r periodo`**
+
+```{r }
+#| echo: false
+
+tabela.selecionada <- tabela |>
+          dplyr::select(2, 6, 7)
+          
+kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+  
+
+```
+
+O relatório mensal pode ser [baixado em pdf](../saida/precos.medios.mensal.pdf), [em versão html](../saida/precos.medios.mensal.html) ou num [arquivo csv](../saida/precos.medios.mensal.csv).

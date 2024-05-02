@@ -5,31 +5,6 @@
 
 Texto e informações sobre servidores efetivos, comissionados e temporários.
 
-## 65.2. Terceirizados
-
-Trata-se da divulgação da relação completa dos empregados de empresas contratadas, em exercício nos órgãos, conforme art. 3º, IV, da Resolução CNJ nº 102/2009.
-A atualização do Anexo V ocorre anualmente ou sempre que há modificação das relações.
-
-Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados do TRERR.
-
-
-```{r }
-#| include: false
-
-
-
-```
-
-
-```{r }
-#| column: page
-#| echo: false
-
-
-
-```
-
-
-
+{{< include terceirizados.qmd >}}
 A tabela de terceirizados pode ser [baixada em pdf](saida/terceirizados.pdf), [em versão html](saida/terceirizados.html) ou num [arquivo csv](saida/terceirizados.csv).
 
