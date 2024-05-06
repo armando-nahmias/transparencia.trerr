@@ -83,6 +83,43 @@ acesso.API <- function() {
           }
 }
 
+cabecalho.acesso.API <- function() {
+          cabecalho <- c(`accept` = 'application/json',
+                         `Content-Type` = 'application/json')
+          
+          configuracao <-
+                    jsonlite::fromJSON('../configuracao/configuracao.json')
+          corpo <-
+                    jsonlite::toJSON(
+                              list(
+                                        cpf = configuracao$usuario.api,
+                                        password = configuracao$senha.api
+                              ),
+                              auto_unbox = TRUE
+                    )
+          
+          resposta <-
+                    httr::POST(url = 'https://contratos.comprasnet.gov.br/api/v1/auth/login',
+                               httr::add_headers(.headers = cabecalho),
+                               body = corpo)
+          
+          if (httr::http_type(resposta) == 'application/json') {
+                    conteudo <- httr::content(resposta)
+                    if (!is.null(conteudo$access_token)) {
+                              simbolo <- conteudo$access_token
+                              epoxy::epoxy('Senha de acesso gerada: {simbolo}\n')
+                              cabecalho <- c(`accept` = 'application/json',
+                                             `Authorization` = paste0('Bearer ', simbolo))
+                              
+                              return(cabecalho)
+                    } else {
+                              stop('Senha de acesso não encontrado na resposta.')
+                    }
+          } else {
+                    stop('Falha na solicitação POST.')
+          }
+}
+
 
 # Terceirizados  -----------------------------------------
 
@@ -628,3 +665,121 @@ atualizar.monitoramento <- function(item) {
 }
 
 
+
+# Garantias --------------------------------------------------------------
+
+consultar.garantias <- function(id, contrato, cabecalho) {
+          endereco <-
+                    epoxy::epoxy('https://contratos.comprasnet.gov.br/api/v1/contrato/{id}/garantias')
+          
+          resposta <-
+                    httr::GET(endereco, httr::add_headers(.headers = cabecalho))
+          
+          if (resposta$status_code == 200) {
+                    conteudo <- httr::content(resposta, as = 'text', encoding = 'UTF-8')
+                    dados <- jsonlite::fromJSON(conteudo)
+                    n.garantias <<- ifelse(is.null(nrow(dados)), 0, nrow(dados))
+                    total.garantias <<- total.garantias + n.garantias
+                    
+                    if (n.garantias == 0) {
+                              logger::log_warn('A consulta não retornou resultados para o Contrato {contrato}.
+                         Desde o início da consulta, foram encontrados {total.garantias} garantias.')
+                              
+                              return(NULL)
+                    } else {
+                              logger::log_info(
+                                        'Consulta bem-sucedida para o Contrato {id} de número {contrato}. Foram encontrados {n.garantias} garantias
+          Desde o início da consulta, foram encontrados {total.garantias} garantias.'
+                              )
+                              
+                              return(dados)
+                    }
+          } else {
+                    logger::log_error(
+                              'Ocorreu um erro na consulta do Contrato {contrato}. Código do erro: {resposta$status_code}.'
+                    )
+                    return(NULL)
+          }
+}
+
+garantias.lista.consultar <- function() {
+
+          contratos <- readr::read_rds('../rds/contratos.lista.dados.rds') |>
+                    purrr::pluck(2) |> 
+                    dplyr::select(numero, id)
+          
+          config <-
+                    jsonlite::fromJSON('../configuracao/configuracao.json')
+          simbolo <- acesso.API()
+          cabecalho <- c(`accept` = 'application/json',
+                         `Authorization` = paste0('Bearer ', simbolo))
+          
+          n.garantias <<- 0
+          total.garantias <<- 0
+          contratos$garantia <- vector("list", nrow(contratos))
+          
+          for (i in seq_along(contratos$id)) {
+                    id <- contratos$id[i]
+                    contrato <- contratos$numero[i]
+                    garantia <- consultar.garantias(id, contrato, cabecalho)
+                    contratos$garantia[i] <- list(garantia)
+          }
+          
+          contratos.garantidos <- contratos |> 
+                    dplyr::filter(garantia != 0)
+          
+          atualizacao <- Sys.Date()
+          
+          contratos.garantidos.dados <- list(atualizacao, contratos.garantidos)
+          
+          readr::write_rds(contratos.garantidos.dados, '../rds/contratos.garantidos.dados.rds')
+
+}
+
+garantias.lista.baixar <- function() {
+          
+          for (id in contratos.lista) {
+                    contrato <- names(contratos.lista[contratos.lista == id])
+                    contrato.garantido <- consultar.garantias(id, contrato, cabecalho)
+                    contratos.garantidos <- rbind(contratos.garantidos, contrato.garantido)
+          }
+          
+          
+          df.contratos.resumido <-
+                    contratos[contratos$id %in% contratos.garantidos$contrato_id, ] |> 
+                    dplyr::select(id, numero, fornecedor_nome, tipo, categoria, processo, objeto, situacao)
+          
+          df.unificado <-
+                    merge(
+                              contratos.garantidos,
+                              df.contratos.resumido,
+                              by.x = 'contrato_id',
+                              by.y = 'id',
+                              all.x = TRUE,
+                              suffixes = c('.garantia', '.contrato')
+                    )
+          
+          df.unificado.ajustado <- df.unificado |>
+                    dplyr::arrange(vencimento) |> 
+                    dplyr::mutate(vencimento = format(as.Date(vencimento), format = "%d/%m/%Y"))
+          
+          
+          garantias.lista <- data.frame(
+                    Contrato = df.unificado.ajustado$numero,
+                    Fornecedor = df.unificado.ajustado$fornecedor_nome,
+                    Valor = df.unificado.ajustado$valor,
+                    Garantia = df.unificado.ajustado$tipo.garantia,
+                    Categoria = df.unificado.ajustado$categoria,
+                    Vencimento = df.unificado.ajustado$vencimento
+          )
+          
+          atualizacao <- Sys.Date()
+          
+          garantias.lista.dados <-
+                    list(atualizacao, garantias.lista)
+          
+          
+          saveRDS(garantias.lista.dados,
+                  '../rds/garantias.lista.dados.rds')
+          
+}
