@@ -726,7 +726,7 @@ garantias.lista.consultar <- function() {
           }
           
           contratos.garantidos <- contratos |> 
-                    dplyr::filter(garantia != 0)
+                    dplyr::filter(purrr::map_lgl(garantia, ~ !is.null(.x)))
           
           atualizacao <- Sys.Date()
           
@@ -737,6 +737,8 @@ garantias.lista.consultar <- function() {
 }
 
 garantias.lista.baixar <- function() {
+          
+          
           
           for (id in contratos.lista) {
                     contrato <- names(contratos.lista[contratos.lista == id])
