@@ -46,3 +46,5 @@ terceirizados.tabela
 ```
 
 
+A tabela de terceirizados pode ser [baixada em pdf](../saida/terceirizados.pdf), [em versão html](../saida/terceirizados.html) ou num [arquivo csv](../saida/terceirizados.csv).
+
