@@ -1,34 +1,28 @@
-
-
-contratos.garantidos.dados <- readr::read_rds('../rds/contratos.garantidos.dados.rds')
-
-contratos <- contratos.garantidos.dados |> 
+contratos.garantidos.dados <- readr::read_rds('../rds/contratos.garantidos.dados.rds') |> 
           purrr::pluck(2)
 
+
+garantias <- readr::read_rds('../rds/contratos.garantidos.dados.rds') |> 
+          purrr::pluck(2) |> 
+          dplyr::select(-garantia)
+
+
 cabecalho <- cabecalho.acesso.API()
-n.garantias <- 0
-total.garantias <- 0
-contratos$garantia <- vector("list", nrow(contratos))
 
 
-for (i in contratos$id[1]) {
-          id <- contratos$id[i]
-          contrato <- contratos$numero[i]
-          garantia <- consultar.garantias(id, contrato, cabecalho)
-          
-          contratos$garantia[i] <- list(garantia)
+garantias$id <- vector("list", nrow(garantias))
+garantias$tipo <- vector("list", nrow(garantias))
+garantias$valor <- vector("list", nrow(garantias))
+garantias$vencimento <- vector("list", nrow(garantias))
+
+for (i in seq_along(garantias$id)) {
+          id <- garantias$id[i]
+          contrato <- garantias$numero[i]
+          dados <- consultar.garantias(id, contrato, cabecalho)
+          for (dado in dados) {
+                    print(dado)
+          }
 }
-
-contratos.garantidos <- contratos |> 
-          dplyr::filter(garantia != 0)
-
-atualizacao <- Sys.Date()
-
-contratos.garantidos.dados <- list(atualizacao, contratos.garantidos)
-
-readr::write_rds(contratos.garantidos.dados, '../rds/contratos.garantidos.dados.rds')
-
-
 
 
 
@@ -104,4 +98,26 @@ kableExtra::save_kable(garantias.tabela,
 
 kableExtra::save_kable(garantias.tabela,
                        '../saida/garantias.html')
+
+
+# teste -------------------------------------------------------------------
+
+
+# Supondo que lista.garantias seja a sua lista de listas
+# Primeiro, verifique se todas as listas têm a mesma estrutura
+# Isso é importante para garantir que o rbind não encontrará problemas
+
+# Verificando a estrutura da primeira lista como exemplo
+str(lista.garantias[[1]])
+
+# Se todas as listas tiverem a mesma estrutura, você pode combinar todas usando do.call e rbind
+df_garantias <- do.call(rbind, lista.garantias)
+
+# Transformando as linhas em um dataframe
+df_garantias <- tibble::as_tibble(df_garantias)
+
+# Verificando o dataframe resultante
+head(df_garantias)
+
+garantias <- merge(contratos.garantidos, df_garantias, by.x='id', by.y='contrato_id')
 
