@@ -1,5 +1,5 @@
 # Estamos trabalhando para sua maior informação
-![Página em Construção](../imagem/pagina.em.construcao.jpg)
+![Página em Construção](../configuracao/pagina.em.construcao.jpg)
 
 ::: {#info style="background-color:#F0F8FF; padding: 15px; border-left: 5px solid #0096D6;"}
 ## Estamos trabalhando para trazer mais transparência para você!

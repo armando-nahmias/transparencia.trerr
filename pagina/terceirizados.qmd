@@ -8,15 +8,7 @@ A atualização do Anexo V ocorre anualmente ou sempre que há modificação das
 ```{r }
 #| include: false
 
-source('../src/funcoes.R')
 
-if (as.POSIXlt(Sys.Date())$wday == 1) {
-          contratos.terceirizados.conferir()
-}
-
-tercerizados.lista <- terceirizados.lista.baixar()
-
-terceirizados.tabela <- terceirizados.tabela.gerar()
 
 ```
 
@@ -26,10 +18,10 @@ Em resumo, os terceirizados estão distribuídos da seguinte forma:
 ```{r }
 #| echo: false
 
-tercerizados.lista |>
-  dplyr::group_by(Fornecedor) |>
-  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
-          kableExtra::kbl()
+# tercerizados.lista |>
+#   dplyr::group_by(Fornecedor) |>
+#   dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
+#           kableExtra::kbl()
 
 ```
 
@@ -41,7 +33,7 @@ Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados
 #| column: page
 #| echo: false
 
-terceirizados.tabela
+# terceirizados.tabela
 
 ```
 

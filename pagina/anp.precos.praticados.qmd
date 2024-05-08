@@ -6,11 +6,6 @@
 #| echo: false
 #| message: false
 
-source('../src/funcoes.R')
-
-consultar.precos.combustivel.semanal()
-
-consultar.precos.combustivel.mensal()
 
 ```
 
@@ -30,15 +25,15 @@ Os dados utilizados neste relatório foram obtidos do [sítio da ANP](https://ww
 #| echo: false
 #| message: false
 
-dados <- readRDS('../rds/precos.medios.semanal.dados.rds')
-
-atualizacao <- dados[[1]]
-tabela <- dados[[2]]
-
-inicio <- unique(tabela$Inicio)
-fim <- unique(tabela$Fim)
-estado <- unique(tabela$Estado)
-municipio <- unique(tabela$Municipio)
+# dados <- readRDS('../rds/precos.medios.semanal.dados.rds')
+# 
+# atualizacao <- dados[[1]]
+# tabela <- dados[[2]]
+# 
+inicio <- ''
+fim <- ''
+estado <- ''
+municipio <- ''
 
 ```
 
@@ -51,12 +46,12 @@ Período: **`r inicio`** a **`r fim`**
 ```{r }
 #| echo: false
 
-tabela.selecionada <- tabela |>
-          dplyr::select(5, 7, 8)
-          
-
-
-kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+# tabela.selecionada <- tabela |>
+#           dplyr::select(5, 7, 8)
+#           
+# 
+# 
+# kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
   
 
 ```
@@ -71,14 +66,14 @@ O relatório semanal pode ser [baixado em pdf](../saida/precos.medios.semanal.pd
 #| echo: false
 #| message: false
 
-dados <- readRDS('../rds/precos.medios.mensal.dados.rds')
-
-atualizacao <- dados[[1]]
-tabela <- dados[[2]]
-
-periodo <- unique(tabela$Periodo)
-estado <- unique(tabela$Estado)
-municipio <- unique(tabela$Municipio)
+# dados <- readRDS('../rds/precos.medios.mensal.dados.rds')
+# 
+# atualizacao <- dados[[1]]
+# tabela <- dados[[2]]
+# 
+periodo <- ''
+# estado <- unique(tabela$Estado)
+# municipio <- unique(tabela$Municipio)
 
 ```
 
@@ -92,10 +87,10 @@ Período: **`r periodo`**
 ```{r }
 #| echo: false
 
-tabela.selecionada <- tabela |>
-          dplyr::select(2, 6, 7)
-          
-kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+# tabela.selecionada <- tabela |>
+#           dplyr::select(2, 6, 7)
+#           
+# kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
   
 
 ```

@@ -3,11 +3,7 @@
 
 ```{r }
 #| include: false
-
-source('../src/funcoes.R')
-contratos.lista <- baixar.contratos.lista()
-
-contratos.tabela <- gerar.contratos.tabela()
+contratos.lista <- ''
 
 ```
 
@@ -16,10 +12,10 @@ Em resumo, há `r nrow(contratos.lista)` contratos ativos no Tribunal Regional E
 ``` {r}
 #| echo: false
 
-contratos.lista |> 
-  dplyr::group_by(tipo) |> 
-  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
-          kableExtra::kbl()
+# contratos.lista |> 
+#   dplyr::group_by(tipo) |> 
+#   dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
+#           kableExtra::kbl()
 
 
 ```
@@ -30,7 +26,7 @@ Abaixo segue a relação completa dos contratos ativos do Tribunal Regional Elei
 #| column: page
 #| echo: false
 
-contratos.tabela
+# contratos.tabela
 
 ```
 

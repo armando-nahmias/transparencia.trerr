@@ -45,8 +45,8 @@ Para uma visão geral, pode-se [consultar a relação completa dos contratos ati
 ```{r}
 #| echo: false
 
-contratos.terceirizados <- readr::read_rds('../rds/contratos.terceirizados.rds')
-terceirizados <- readr::read_rds('../rds/terceirizados.rds')
+contratos.terceirizados <- ''
+terceirizados <- ''
 ```
 
 O TRERR possui `r length(contratos.terceirizados)` contratos de terceirização, o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na lista de terceirizados constante da [página de servidores](servidores.qmd).

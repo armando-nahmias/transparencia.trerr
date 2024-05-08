@@ -5,13 +5,13 @@ Estamos comprometidos em manter este Portal atualizado regularmente, apresentand
 
 ```{r include=FALSE}
 
-monitoramento <-
-          readr::read_rds('../rds/monitoramento.rds') |> 
-          dplyr::arrange(Item) |> 
-          dplyr::mutate(Atualizado = ifelse(is.na(Atualizado), NA, format(Atualizado, '%d/%m/%Y')))
-
-
-enderecos <- monitoramento$Endereco
+# monitoramento <-
+#           readr::read_rds('../rds/monitoramento.rds') |> 
+#           dplyr::arrange(Item) |> 
+#           dplyr::mutate(Atualizado = ifelse(is.na(Atualizado), NA, format(Atualizado, '%d/%m/%Y')))
+# 
+# 
+# enderecos <- monitoramento$Endereco
 
 
 ```
@@ -20,10 +20,10 @@ enderecos <- monitoramento$Endereco
 
 ```{r echo=FALSE}
 
-monitoramento |> 
-          dplyr::group_by(Atualizado) |> 
-          dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
-          kableExtra::kbl()
+# monitoramento |> 
+#           dplyr::group_by(Atualizado) |> 
+#           dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
+#           kableExtra::kbl()
 
 
 ```
@@ -34,12 +34,12 @@ Abaixo, é apresentada uma tabela com todos os dados incluídos no portal e a da
 ```{r echo=FALSE}
 #| column: page
 
- monitoramento |>
-          dplyr::select(Item, Descrição, Atualizado) |>
-          kableExtra::kbl() |>
-          kableExtra::kable_styling(bootstrap_options = 'stripe') |>
-          kableExtra::row_spec(0, align = 'c') |> 
-          kableExtra::column_spec(2, link = enderecos)
+ # monitoramento |>
+ #          dplyr::select(Item, Descrição, Atualizado) |>
+ #          kableExtra::kbl() |>
+ #          kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+ #          kableExtra::row_spec(0, align = 'c') |> 
+ #          kableExtra::column_spec(2, link = enderecos)
 
 
 
