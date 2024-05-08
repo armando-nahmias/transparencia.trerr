@@ -1,27 +1,94 @@
+cabecalho.acesso.API <- function() {
+          cabecalho <- c(`accept` = 'application/json',
+                         `Content-Type` = 'application/json')
+          
+          configuracao <-
+                    jsonlite::fromJSON('../configuracao/configuracao.json')
+          corpo <-
+                    jsonlite::toJSON(
+                              list(
+                                        cpf = configuracao$usuario.api,
+                                        password = configuracao$senha.api
+                              ),
+                              auto_unbox = TRUE
+                    )
+          
+          resposta <-
+                    httr::POST(url = 'https://contratos.comprasnet.gov.br/api/v1/auth/login',
+                               httr::add_headers(.headers = cabecalho),
+                               body = corpo)
+          
+          if (httr::http_type(resposta) == 'application/json') {
+                    conteudo <- httr::content(resposta)
+                    if (!is.null(conteudo$access_token)) {
+                              simbolo <- conteudo$access_token
+                              epoxy::epoxy('Senha de acesso gerada: {simbolo}\n')
+                              cabecalho <- c(`accept` = 'application/json',
+                                             `Authorization` = paste0('Bearer ', simbolo))
+                              
+                              return(cabecalho)
+                    } else {
+                              stop('Senha de acesso não encontrado na resposta.')
+                    }
+          } else {
+                    stop('Falha na solicitação POST.')
+          }
+}
+cabecalho <- cabecalho.acesso.API()
+consultar.garantias <- function(id, contrato, cabecalho) {
+          endereco <-
+                    epoxy::epoxy('https://contratos.comprasnet.gov.br/api/v1/contrato/{id}/garantias')
+          
+          resposta <-
+                    httr::GET(endereco, httr::add_headers(.headers = cabecalho))
+          
+          if (resposta$status_code == 200) {
+                    conteudo <- httr::content(resposta, as = 'text', encoding = 'UTF-8')
+                    dados <- jsonlite::fromJSON(conteudo)
+                    n.garantias <<- ifelse(is.null(nrow(dados)), 0, nrow(dados))
+                    total.garantias <<- total.garantias + n.garantias
+                    
+                    if (n.garantias == 0) {
+                              logger::log_warn('A consulta não retornou resultados para o Contrato {contrato}.
+                         Desde o início da consulta, foram encontrados {total.garantias} garantias.')
+                              
+                              return(NULL)
+                    } else {
+                              logger::log_info(
+                                        'Consulta bem-sucedida para o Contrato {id} de número {contrato}. Foram encontrados {n.garantias} garantias
+          Desde o início da consulta, foram encontrados {total.garantias} garantias.'
+                              )
+                              
+                              return(dados)
+                    }
+          } else {
+                    logger::log_error(
+                              'Ocorreu um erro na consulta do Contrato {contrato}. Código do erro: {resposta$status_code}.'
+                    )
+                    return(NULL)
+          }
+}
+
+
 contratos.garantidos.dados <- readr::read_rds('../rds/contratos.garantidos.dados.rds') |> 
           purrr::pluck(2)
 
 
-garantias <- readr::read_rds('../rds/contratos.garantidos.dados.rds') |> 
+contratos.garantidos <- readr::read_rds('../rds/contratos.garantidos.dados.rds') |> 
           purrr::pluck(2) |> 
-          dplyr::select(-garantia)
+          dplyr::select(-garantia) |> 
+          dplyr::rename(contrato = id)
 
 
-cabecalho <- cabecalho.acesso.API()
 
+total.garantias <- 0
+garantias <- data.frame()
 
-garantias$id <- vector("list", nrow(garantias))
-garantias$tipo <- vector("list", nrow(garantias))
-garantias$valor <- vector("list", nrow(garantias))
-garantias$vencimento <- vector("list", nrow(garantias))
-
-for (i in seq_along(garantias$id)) {
-          id <- garantias$id[i]
-          contrato <- garantias$numero[i]
+for (i in seq_along(contratos.garantidos$contrato[1:5])) {
+          id <- contratos.garantidos$contrato[i]
+          contrato <- contratos.garantidos$numero[i]
           dados <- consultar.garantias(id, contrato, cabecalho)
-          for (dado in dados) {
-                    print(dado)
-          }
+          garantias <- rbind(garantias, dados)
 }
 
 
@@ -108,10 +175,12 @@ kableExtra::save_kable(garantias.tabela,
 # Isso é importante para garantir que o rbind não encontrará problemas
 
 # Verificando a estrutura da primeira lista como exemplo
-str(lista.garantias[[1]])
+str(garantias[[1]])
+
+garantias <- contratos.garantidos |> purrr::pluck(3)
 
 # Se todas as listas tiverem a mesma estrutura, você pode combinar todas usando do.call e rbind
-df_garantias <- do.call(rbind, lista.garantias)
+df_garantias <- do.call(rbind, garantias)
 
 # Transformando as linhas em um dataframe
 df_garantias <- tibble::as_tibble(df_garantias)
