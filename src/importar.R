@@ -1,3 +1,181 @@
+
+importar.contratos.anual.seges <- function() {
+          anos <- seq(2021, as.numeric(format(Sys.Date(), "%Y")))
+          destinos <- sprintf('../dados/seges.contratos.anual.%s.csv', anos)
+          arquivos <-
+                    sprintf('comprasnet-contratos-anual-contratos-%s.csv',
+                            anos)
+          fontes <-
+                    sprintf(
+                              'https://repositorio.dados.gov.br/seges/comprasnet_contratos/anual/%s/%s',
+                              anos,
+                              arquivos
+                    )
+          
+          file.remove(dplyr::last(destinos))
+          
+          curl::multi_download(fontes,
+                               destinos,
+                               resume = TRUE,
+                               progress = TRUE)
+}
+
+importar.recurso.comprasnet <- function(recurso) {
+          # recurso <- 'itens'
+
+          arquivo <- sprintf('../rds/%s.rds', recurso)
+          
+          if (file.exists(arquivo)) {
+                    contratos <- readr::read_rds(arquivo) |> purrr::pluck('contratos')
+                    atualizado <- readr::read_rds(arquivo) |> purrr::pluck('atualizado')
+          } 
+          
+          if (nrow(contratos) == 0) {
+                    return()
+          }
+          
+          if (!exists('contratos') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
+                    source('../src/organizar.R')
+                    contratos <- consolidar.contratos.anual.seges() |> 
+                              dplyr::select(id, numero)
+          }
+
+          resultados <- list()
+          n.recursos <<- 0
+          total.recursos <<- 0
+
+          for (i in seq_along(contratos$id)) {
+                    id <- contratos$id[i]
+                    numero <- contratos$numero[i]
+
+                    logger::log_info('Iniciando a consulta número {numero} de um total de {total}.',
+                                     numero = which(contratos$id == id),
+                                     total = nrow(contratos))
+                    
+                    resultados[[length(resultados) + 1]] <- raspar.comprasnet(id, numero, recurso)
+          }
+          
+          # consulta <- data.table::rbindlist(resultados)
+          consulta <- do.call(rbind, resultados)
+          
+          if (length(contratos) != nrow(consulta)) {
+
+                    contratos <- contratos |> 
+                              dplyr::filter(id %in% consulta$contrato_id)
+          }
+          
+          atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
+          
+          dados <- list(atualizado = atualizado, contratos = contratos, consultado = consulta)
+          
+          readr::write_rds(dados, arquivo)
+          
+}
+
+importar.precos.combustiveis <- function() {
+          arquivo <- '../rds/combustiveis.rds'
+
+          precos.combustiveis.semanal.fonte <- 'https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/semanal/semanal-municipios-2022-2024.xlsx'
+          
+          precos.combustiveis.mensal.fonte <- 'https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-municipios-jan2022-2024.xlsx'
+          
+          fontes <- c(semanal = precos.combustiveis.semanal.fonte, mensal = precos.combustiveis.mensal.fonte)
+          
+          destinos <- c(semanal = '../dados/anp.precos.medios.semanal.xlsx', mensal = '../dados/anp.precos.medios.mensal.xlsx')
+          
+          # if (as.POSIXlt(Sys.Date())$wday == 2) file.remove(destinos)
+          
+          curl::multi_download(fontes,
+                               destinos,
+                               resume = TRUE,
+                               progress = TRUE)
+          
+          semanal <-
+                    readxl::read_xlsx(destinos[[1]],
+                                      col_types = 'text',
+                                      skip = 11)
+          
+          mensal <-
+                    readxl::read_xlsx(destinos[[2]],
+                                      col_types = 'text',
+                                      skip = 16)
+          
+          municipios <- list('BOA VISTA')
+          produtos <-
+                    list('GASOLINA COMUM', 'OLEO DIESEL', 'OLEO DIESEL S10', 'GLP')
+          colunas.novas.semanal <-
+                    c(
+                              'Inicio',
+                              'Fim',
+                              'Estado',
+                              'Municipio',
+                              'Produto',
+                              'Medida',
+                              'Preço médio',
+                              'Preço mínimo'
+                    )
+          colunas.atuais.semanal <-
+                    c(
+                              "DATA INICIAL",
+                              "DATA FINAL",
+                              "ESTADO",
+                              "MUNICÍPIO",
+                              "PRODUTO",
+                              "UNIDADE DE MEDIDA",
+                              "PREÇO MÉDIO REVENDA",
+                              "PREÇO MÍNIMO REVENDA"
+                    )
+          colunas.novas.mensal <-
+                    c(
+                              'Inicio',
+                              'Produto',
+                              'Estado',
+                              'Municipio',
+                              'Medida',
+                              'Preço médio',
+                              'Preço mínimo'
+                    )
+          colunas.atuais.mensal <-
+                    c(
+                              "MÊS",
+                              "PRODUTO",
+                              "ESTADO",
+                              "MUNICÍPIO",
+                              "UNIDADE DE MEDIDA",
+                              "PREÇO MÉDIO REVENDA",
+                              "PREÇO MÍNIMO REVENDA"
+                    )
+          
+          consultado1 <- semanal |>
+                    dplyr::filter(`MUNICÍPIO` %in% municipios,
+                                  PRODUTO %in% produtos,
+                                  `DATA INICIAL` == max(`DATA INICIAL`)) |>
+                    dplyr::select(1, 2, 4, 5, 6, 8, 9, 11) |>
+                    dplyr::rename(setNames(colunas.atuais.semanal, colunas.novas.semanal)) |> 
+                    dplyr::mutate(Periodicidade = 'Semanal')
+
+          consultado2 <- mensal |>
+                    dplyr::filter(`MUNICÍPIO` %in% municipios,
+                                  PRODUTO %in% produtos,
+                                  `MÊS` == max(`MÊS`)) |> 
+                    dplyr::select(1, 2, 4, 5, 7, 8, 10) |>
+                    dplyr::rename(setNames(colunas.atuais.mensal, colunas.novas.mensal)) |> 
+                    dplyr::mutate(Periodicidade = 'Mensal')
+          
+          consultado <- dplyr::bind_rows(consultado1, consultado2)
+          
+          atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
+          
+          dados <- list(atualizado = atualizado, consultado = consultado)
+          
+          readr::write_rds(dados, arquivo)
+          
+}
+
+
+# Funções secundárias -----------------------------------------------------
+
+
 raspar.comprasnet <- function(id, numero, recurso) {
           if (!exists('cabecalho')) {
                     acesso.API <- function() {
@@ -82,80 +260,3 @@ raspar.comprasnet <- function(id, numero, recurso) {
           }
 }
 
-importar.precos.combustiveis <- function() {
-          precos.combustiveis.semanal.fonte <- 'https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/semanal/semanal-municipios-2022-2024.xlsx'
-          
-          precos.combustiveis.mensal.fonte <- 'https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-municipios-jan2022-2024.xlsx'
-          
-          fontes <- c(semanal = precos.combustiveis.semanal.fonte, mensal = precos.combustiveis.mensal.fonte)
-          
-          destinos <- c(semanal = '../dados/anp.precos.medios.semanal.xlsx', mensal = '../dados/anp.precos.medios.mensal.xlsx')
-          
-          curl::multi_download(fontes,
-                               destinos,
-                               resume = TRUE,
-                               progress = TRUE)
-}
-
-importar.contratos.anual.seges <- function() {
-          anos <- seq(2021, as.numeric(format(Sys.Date(), "%Y")))
-          destinos <- sprintf('../dados/seges.contratos.anual.%s.csv', anos)
-          arquivos <-
-                    sprintf('comprasnet-contratos-anual-contratos-%s.csv',
-                            anos)
-          fontes <-
-                    sprintf(
-                              'https://repositorio.dados.gov.br/seges/comprasnet_contratos/anual/%s/%s',
-                              anos,
-                              arquivos
-                    )
-          
-          curl::multi_download(fontes,
-                               destinos,
-                               resume = TRUE,
-                               progress = TRUE)
-}
-
-consultar.recurso <- function(recurso) {
-          arquivo <- sprintf('../rds/%s.rds', recurso)
-          
-          if (file.exists(arquivo)) {
-                    contratos <- readr::read_rds(arquivo) |> purrr::pluck(2)
-                    atualizado <- readr::read_rds(arquivo) |> purrr::pluck(1)
-          } 
-          
-          if (nrow(contratos) == 0) {
-                    return()
-          }
-          
-          if (!exists('contratos') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
-                    source('../src/transformar.R')
-                    contratos <- gerar.lista.contratos()
-          }
-
-          resultados <- list()
-          n.recursos <<- 0
-          total.recursos <<- 0
-          n.contratos <- length(contratos)
-          
-          for (i in seq_along(contratos$id)) {
-                    id <- contratos$id[i]
-                    numero <- contratos$numero[i]
-                    resultados[[length(resultados) + 1]] <- raspar.comprasnet(id, numero, recurso)
-          }
-          
-          consulta <- do.call(rbind, resultados)
-          
-          if (length(contratos) != nrow(consulta)) {
-
-                    contratos <- contratos |> 
-                              dplyr::filter(id %in% consulta$contrato_id)
-          }
-          
-          atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
-          
-          dados <- list(atualizado, contratos, consulta)
-          
-          readr::write_rds(dados, arquivo)
-          
-}
