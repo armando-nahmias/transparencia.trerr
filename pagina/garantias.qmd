@@ -1,0 +1,48 @@
+## 47.1 Garantias
+
+
+```{r }
+#| include: false
+
+source('../src/importar.R')
+
+importar.recurso.comprasnet('garantias')
+
+source('../src/organizar.R')
+
+organizado <- organizar.garantias()
+
+
+```
+
+Em resumo, há `r nrow(organizado)` garantias relacionadas a contratos no Tribunal Regional Eleitoral de Roraima, assim distribuídos:
+
+``` {r}
+#| echo: false
+
+organizado |>
+  dplyr::group_by(Tipo, Situação) |>
+  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
+          kableExtra::kbl()
+
+
+```
+
+Abaixo segue a relação completa das garantias, mesmo expiradas, relativas aos contratos do Tribunal Regional Eleitoral de Roraima.
+
+```{r }
+#| column: page
+#| echo: false
+
+source('../src/formatar.R')
+
+formatar.garantias()
+```
+
+
+
+
+A lista de garantias pode ser [baixada em pdf](../saida/garantias.pdf), [em versão html](../saida/garantias.html) ou num [arquivo csv](../saida/garantias.csv).
+
+
+

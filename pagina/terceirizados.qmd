@@ -6,11 +6,14 @@ A atualização do Anexo V ocorre anualmente ou sempre que há modificação das
 
 
 ```{r }
-#| include: false
+#| echo: false
 
+source('../src/importar.R')
 
+importar.recurso.comprasnet('terceirizados')
 
 ```
+
 
 Em resumo, os terceirizados estão distribuídos da seguinte forma:
 
@@ -18,10 +21,14 @@ Em resumo, os terceirizados estão distribuídos da seguinte forma:
 ```{r }
 #| echo: false
 
-# tercerizados.lista |>
-#   dplyr::group_by(Fornecedor) |>
-#   dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
-#           kableExtra::kbl()
+source('../src/organizar.R')
+
+organizado <- organizar.terceirizados()
+
+organizado |>
+  dplyr::group_by(Fornecedor, Contrato) |>
+  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
+          kableExtra::kbl()
 
 ```
 
@@ -33,7 +40,9 @@ Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados
 #| column: page
 #| echo: false
 
-# terceirizados.tabela
+source('../src/formatar.R')
+
+formatar.terceirizados()
 
 ```
 

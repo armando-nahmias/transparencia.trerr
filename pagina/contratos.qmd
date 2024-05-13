@@ -3,19 +3,27 @@
 
 ```{r }
 #| include: false
-contratos.lista <- ''
+
+source('../src/importar.R')
+
+importar.contratos.anual.seges()
+
+source('../src/organizar.R')
+
+organizado <- organizar.contratos()
+
 
 ```
 
-Em resumo, há `r nrow(contratos.lista)` contratos ativos no Tribunal Regional Eleitoral de Roraima, assim distribuídos:
+Em resumo, há `r nrow(organizado)` contratos ativos no Tribunal Regional Eleitoral de Roraima, assim distribuídos:
 
 ``` {r}
 #| echo: false
 
-# contratos.lista |> 
-#   dplyr::group_by(tipo) |> 
-#   dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |> 
-#           kableExtra::kbl()
+organizado |>
+  dplyr::group_by(Tipo) |>
+  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
+          kableExtra::kbl()
 
 
 ```
@@ -26,8 +34,9 @@ Abaixo segue a relação completa dos contratos ativos do Tribunal Regional Elei
 #| column: page
 #| echo: false
 
-# contratos.tabela
+source('../src/formatar.R')
 
+formatar.contratos()
 ```
 
 

@@ -6,6 +6,14 @@
 #| echo: false
 #| message: false
 
+source('../src/importar.R')
+
+importar.precos.combustiveis()
+
+source('../src/organizar.R')
+
+organizado <- organizar.combustiveis()
+
 
 ```
 
@@ -14,28 +22,36 @@
 
 Este relatório apresenta o preço médio dos combustíveis, apresentando informações relevantes sobre a média dos preços praticados.
 
+
+```{r }
+#| echo: false
+#| message: false
+
+arquivo <- '../rds/combustiveis.rds'
+atualizado <- readr::read_rds(arquivo) |> purrr::pluck('atualizado')
+
+
+estado <- unique(organizado$Estado)
+municipio <- unique(organizado$Municipio)
+inicio <- organizado |> 
+          dplyr::filter(Periodicidade == 'Semanal') |> 
+          dplyr::distinct(Inicio)
+fim <- organizado |> 
+          dplyr::filter(Periodicidade == 'Semanal') |> 
+          dplyr::distinct(Fim)
+periodo <- organizado |>
+  dplyr::filter(Periodicidade == 'Mensal') |>
+  dplyr::distinct(Fim) |>
+  dplyr::mutate(Fim = format(as.Date(Fim, format = "%d/%m/%Y"), "%m/%Y"))
+
+```
+
 ## Dados
 
 Os dados utilizados neste relatório foram obtidos do [sítio da ANP](https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/serie-historica-do-levantamento-de-precos).
 
 
 ## Relatório Semanal
-
-```{r }
-#| echo: false
-#| message: false
-
-# dados <- readRDS('../rds/precos.medios.semanal.dados.rds')
-# 
-# atualizacao <- dados[[1]]
-# tabela <- dados[[2]]
-# 
-inicio <- ''
-fim <- ''
-estado <- ''
-municipio <- ''
-
-```
 
 Abaixo, segue tabela contendo os resultados das últimas pesquisas semanais relativos ao Levantamento de Preços de Combustíveis.
 
@@ -46,12 +62,16 @@ Período: **`r inicio`** a **`r fim`**
 ```{r }
 #| echo: false
 
-# tabela.selecionada <- tabela |>
-#           dplyr::select(5, 7, 8)
-#           
-# 
-# 
-# kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+formatado <- organizado |>
+          dplyr::filter(Periodicidade == 'Semanal') |> 
+          dplyr::select(-Inicio, -Fim, -Periodicidade) |> 
+                    kableExtra::kbl(caption = paste0('Dados atualizados em ', atualizado),
+                                    align = 'llllllrr') |>
+                    kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+                    kableExtra::row_spec(0, align = 'c')
+
+
+formatado
   
 
 ```
@@ -66,14 +86,6 @@ O relatório semanal pode ser [baixado em pdf](../saida/precos.medios.semanal.pd
 #| echo: false
 #| message: false
 
-# dados <- readRDS('../rds/precos.medios.mensal.dados.rds')
-# 
-# atualizacao <- dados[[1]]
-# tabela <- dados[[2]]
-# 
-periodo <- ''
-# estado <- unique(tabela$Estado)
-# municipio <- unique(tabela$Municipio)
 
 ```
 
@@ -87,12 +99,18 @@ Período: **`r periodo`**
 ```{r }
 #| echo: false
 
-# tabela.selecionada <- tabela |>
-#           dplyr::select(2, 6, 7)
-#           
-# kableExtra::kable(tabela.selecionada, align = 'lrr', caption = epoxy::epoxy('Atualizado em {atualizacao}'))
+formatado <- organizado |>
+          dplyr::filter(Periodicidade == 'Mensal') |> 
+          dplyr::select(-Inicio, -Fim, -Periodicidade) |> 
+                    kableExtra::kbl(caption = paste0('Dados atualizados em ', atualizado),
+                                    align = 'llllllrr') |>
+                    kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+                    kableExtra::row_spec(0, align = 'c')
+
+
+formatado
   
 
 ```
 
-O relatório mensal pode ser [baixado em pdf](../saida/precos.medios.mensal.pdf), [em versão html](../saida/precos.medios.mensal.html) ou num [arquivo csv](../saida/precos.medios.mensal.csv).
+O relatório mensal pode ser [baixado em pdf](../saida/combustiveis.pdf), [em versão html](../saida/combustiveis.html) ou num [arquivo csv](../saida/combustiveis.csv).
