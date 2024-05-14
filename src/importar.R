@@ -12,7 +12,7 @@ importar.contratos.anual.seges <- function() {
                               arquivos
                     )
           
-          file.remove(dplyr::last(destinos))
+          if (as.POSIXlt(Sys.Date())$wday == 1) file.remove(dplyr::last(destinos))
           
           curl::multi_download(fontes,
                                destinos,
@@ -21,7 +21,7 @@ importar.contratos.anual.seges <- function() {
 }
 
 importar.recurso.comprasnet <- function(recurso) {
-          # recurso <- 'itens'
+          # recurso <- 'terceirizados'
 
           arquivo <- sprintf('../rds/%s.rds', recurso)
           
@@ -39,6 +39,12 @@ importar.recurso.comprasnet <- function(recurso) {
                     contratos <- consolidar.contratos.anual.seges() |> 
                               dplyr::select(id, numero)
           }
+          
+          if (lubridate::dmy(atualizado) == Sys.Date()) {
+                    logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
+                    return()
+          }
+          
 
           resultados <- list()
           n.recursos <<- 0
@@ -83,7 +89,7 @@ importar.precos.combustiveis <- function() {
           
           destinos <- c(semanal = '../dados/anp.precos.medios.semanal.xlsx', mensal = '../dados/anp.precos.medios.mensal.xlsx')
           
-          # if (as.POSIXlt(Sys.Date())$wday == 2) file.remove(destinos)
+          if (as.POSIXlt(Sys.Date())$wday == 1) file.remove(destinos)
           
           curl::multi_download(fontes,
                                destinos,
