@@ -36,9 +36,19 @@ Divulgamos o nome do vencedor de cada licitação, reforçando nosso compromisso
 
 ### 47-49. Contratos e Termos Aditivos
 
-A íntegra dos contratos firmados e dos Termos Aditivos assinados é disponibilizada, permitindo o acompanhamento e a fiscalização dos acordos realizados.
+A [íntegra dos contratos firmados e dos Termos Aditivos assinados](7.47.0.integra.contratos.qmd) é disponibilizada, permitindo o acompanhamento e a fiscalização dos acordos realizados.
 
-Para uma visão geral, pode-se [consultar a relação completa dos contratos ativos](contratos.qmd).
+#### Tabela dos contratos ativos
+
+Para uma visão geral, pode-se [consultar a tabela completa dos contratos ativos](7.47.1.tabela.contratos.qmd).
+
+#### Lista de Garantias
+
+Além disso, ainda é possível consultar a [relação das garantias prestadas.](7.47.2.garantias.qmd)
+
+#### Preços Médios de Combustíveis
+
+No contrato de aquisição de combustível, o valor a ser pago tem como referência os valores pesquisados pela Agência Nacional de Petróleo. Os detalhes podem ser consultados nas [tabelas de preços médios praticados](7.47.3.combustiveis.qmd).
 
 #### Lista de Terceirizados
 
@@ -49,11 +59,7 @@ contratos.terceirizados <- ''
 terceirizados <- ''
 ```
 
-O TRERR possui `r length(contratos.terceirizados)` contratos de terceirização, o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na lista de terceirizados constante da [página de servidores](servidores.qmd).
-
-#### Preços Médios de Combustíveis
-
-No contrato de aquisição de combustível, o valor a ser pago tem como referência os valores pesquisados pela Agência Nacional de Petróleo. Os detalhes podem ser consultados nas [tabelas de preços médios praticados](anp.precos.praticados.qmd).
+O TRERR possui `r length(contratos.terceirizados)` contratos de terceirização, o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na [página de terceirizados](8.65.2.terceirizados.qmd).
 
 ## Dispensas e Inexigibilidades de Licitação
 

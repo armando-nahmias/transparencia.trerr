@@ -57,7 +57,7 @@ Para dúvidas, sugestões ou solicitações específicas, entre em contato atrav
 
 06.  [Gestão Orçamentária](pagina/pagina.em.construcao.qmd);
 
-07.  [Licitações, Contratos e Instrumentos de Cooperação](pagina/licitacoes.contratos.qmd);
+07.  [Licitações, Contratos e Instrumentos de Cooperação](pagina/7.0.licitacoes.contratos.qmd);
 
 08.  [Gestão de Pessoas](pagina/pagina.em.construcao.qmd);
 

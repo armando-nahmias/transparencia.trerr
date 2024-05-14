@@ -6,7 +6,7 @@ A atualização do Anexo V ocorre anualmente ou sempre que há modificação das
 
 
 ```{r }
-#| echo: false
+#| include: false
 
 source('../src/importar.R')
 
@@ -37,15 +37,32 @@ Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados
 
 
 ```{r }
-#| column: page
-#| echo: false
+#| include: false
 
 source('../src/formatar.R')
 
-formatar.terceirizados()
+formatado <- formatar.terceirizados()
+```
 
+
+```{r }
+#| column: page
+#| echo: false
+
+formatado
 ```
 
 
 A tabela de terceirizados pode ser [baixada em pdf](../saida/terceirizados.pdf), [em versão html](../saida/terceirizados.html) ou num [arquivo csv](../saida/terceirizados.csv).
+
+
+```{r }
+#| echo: false
+
+# formatos <- c('pdf', 'html', 'csv')
+# 
+# cat('A tabela de terceirizados pode ser baixada ', epoxy::epoxy("em versão [{formato}](../saida/{formato}.qmd)", formato = formatos))
+
+
+```
 

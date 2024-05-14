@@ -1,0 +1,38 @@
+## 47.1 Contratos
+
+
+```{r }
+#| include: false
+
+source('../src/importar.R')
+
+importar.recurso.comprasnet('arquivos')
+
+source('../src/organizar.R')
+
+organizado.arquivos <- organizar.arquivos()
+
+```
+
+Abaixo constam os endereços dos arquivos integrais dos contratos e termos aditivos do Tribunal Regional Eleitoral de Roraima.
+
+```{r }
+#| include: false
+
+
+source('../src/formatar.R')
+formatado <- formatar.arquivos()
+
+```
+
+
+```{r }
+#| column: page
+#| echo: false
+
+formatado
+
+```
+
+A lista da íntegra dos contratos pode ser [baixada em pdf](../saida/arquivos.pdf), [em versão html](../saida/arquivos.html) ou num [arquivo csv](../saida/arquivos.csv).
+

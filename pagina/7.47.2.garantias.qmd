@@ -1,4 +1,4 @@
-## 47.1 Garantias
+## 47.2. Garantias
 
 
 ```{r }
@@ -32,11 +32,20 @@ Abaixo segue a relação completa das garantias, mesmo expiradas, relativas aos 
 
 ```{r }
 #| column: page
-#| echo: false
+#| include: false
 
 source('../src/formatar.R')
 
-formatar.garantias()
+formatado <- formatar.garantias()
+```
+
+
+```{r }
+#| column: page
+#| echo: false
+
+
+formatado
 ```
 
 

@@ -10,17 +10,16 @@ importar.contratos.anual.seges()
 
 source('../src/organizar.R')
 
-organizado <- organizar.contratos()
-
+organizado.contratos <- organizar.contratos()
 
 ```
 
-Em resumo, há `r nrow(organizado)` contratos ativos no Tribunal Regional Eleitoral de Roraima, assim distribuídos:
+Em resumo, há `r nrow(organizado.contratos)` contratos ativos no Tribunal Regional Eleitoral de Roraima, assim distribuídos:
 
 ``` {r}
 #| echo: false
 
-organizado |>
+organizado.contratos |>
   dplyr::group_by(Tipo) |>
   dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
           kableExtra::kbl()
@@ -28,18 +27,25 @@ organizado |>
 
 ```
 
+Também é possível [consultar a íntegra desses instrumentos](7.47.0.integra.contratos.qmd).
+
 Abaixo segue a relação completa dos contratos ativos do Tribunal Regional Eleitoral de Roraima.
 
 ```{r }
-#| column: page
-#| echo: false
+#| include: false
 
 source('../src/formatar.R')
 
-formatar.contratos()
+formatado <- formatar.contratos()
 ```
 
 
+```{r }
+#| column: screen
+#| echo: false
+
+formatado
+```
 
 
 A lista de contratos pode ser [baixada em pdf](../saida/contratos.seges.tabela.pdf), [em versão html](../saida/contratos.seges.tabela.html) ou num [arquivo csv](../saida/contratos.seges.tabela.csv).

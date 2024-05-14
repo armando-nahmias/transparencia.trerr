@@ -28,7 +28,7 @@ Estamos comprometidos em manter este Portal atualizado regularmente, apresentand
 
 ```
 
-Abaixo, é apresentada uma tabela com todos os dados incluídos no portal e a data em que os dados correspondentes foram atualizados.
+Abaixo, oportunamente, será apresentada uma tabela com todos os dados incluídos no portal e a data em que os dados correspondentes foram atualizados.
 
 
 ```{r echo=FALSE}

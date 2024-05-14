@@ -1,8 +1,0 @@
-
-# 65. Anexo VI: Servidores Efetivos, Comissionados, Temporários e Terceirizados
-
-## 65.1. Servidores efetivos, comissionados e temporários
-
-Texto e informações sobre servidores efetivos, comissionados e temporários.
-
-{{< include terceirizados.qmd >}}
