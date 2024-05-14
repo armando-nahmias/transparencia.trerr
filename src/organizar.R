@@ -136,9 +136,9 @@ organizar.garantias <- function() {
           consolidado <- dplyr::inner_join(contratos, consulta, by = 'contrato_id')
           
           organizado <- consolidado |>
-                    dplyr::arrange(contrato_id, id) |> 
                     dplyr::mutate(
                               Contrato = as.character(numero),
+                              Ano = stringr::str_match(numero, pattern = "\\/(\\d{4})")[, 2],
                               Fornecedor = as.character(fornecedor_nome),
                               Tipo = as.factor(tipo),
                               valor = stringr::str_remove_all(valor, '\\.'),
@@ -146,10 +146,10 @@ organizar.garantias <- function() {
                               Valor = scales::dollar(valor, prefix = "R$ ", decimal.mark = ",", big.mark = ".", accuracy = 0.01),
                               `Situação` = ifelse(vencimento < Sys.Date(), 'Expirada', 'Ativa'),
                               Vencimento = format(as.Date(vencimento), "%d/%m/%Y")
-                              
                     ) |> 
                     dplyr::distinct(contrato_id, .keep_all = TRUE) |> 
-                    dplyr::select(Contrato, Fornecedor, Tipo, Valor, Vencimento, `Situação`)
+                    dplyr::arrange(Ano, Contrato) |> 
+                    dplyr::select(Ano, Contrato, Fornecedor, Tipo, Valor, Vencimento, `Situação`)
           
           dados$organizado <- organizado
           
@@ -163,10 +163,10 @@ organizar.arquivos <- function() {
           arquivo <- '../rds/arquivos.rds'
           dados <- readr::read_rds(arquivo)
           consulta <- dados$consulta
-          
+
           contratos <- readr::read_rds('../rds/contratos.rds') |>
                     purrr::pluck('contratos') |>
-                    dplyr::select(contrato_id = id, numero, fornecedor_nome)
+                    dplyr::select(contrato_id = id, numero, fornecedor_nome, objeto)
           
           consolidado <- dplyr::inner_join(contratos, consulta, by = 'contrato_id')
           
@@ -176,10 +176,10 @@ organizar.arquivos <- function() {
                               Contrato = as.character(numero),
                               Fornecedor = as.character(fornecedor_nome),
                               Tipo = as.factor(tipo),
-                              Caminho = htmltools::urlEncodePath(path_arquivo)
+                              Objeto = as.character(objeto)
                     ) |> 
-                    dplyr::rename(Processo = processo, `Descrição` = descricao) |> 
-                    dplyr::select(Contrato, Fornecedor, Tipo, Processo, `Descrição`, Caminho)
+                    dplyr::rename(Processo = processo, `Descrição` = descricao, Caminho = path_arquivo) |> 
+                    dplyr::select(Contrato, Fornecedor, Tipo, `Descrição`, Objeto, Caminho)
           
           dados$organizado <- organizado
           
