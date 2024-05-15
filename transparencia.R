@@ -10,7 +10,18 @@ importar.precos.combustiveis()
 lista.recursos <- c(
           'arquivos',
           'garantias',
-          'terceirizados'
+          'terceirizados',
+          'cronograma',
+          'despesas_acessorias',
+          'domiciliobancario',
+          'empenhos',
+          'faturas',
+          'historico',
+          'itens',
+          'ocorrencias',
+          'prepostos',
+          'publicacoes',
+          'responsaveis'
 )
 
 for (recurso in lista.recursos) importar.recurso.comprasnet(recurso)
