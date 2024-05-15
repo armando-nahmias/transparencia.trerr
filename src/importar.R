@@ -20,6 +20,59 @@ importar.contratos.anual.seges <- function() {
                                progress = TRUE)
 }
 
+importar.contrato.comprasnet <- function() {
+          
+          arquivo <- '../rds/contratos.rds'
+          dados <- readr::read_rds(arquivo)
+          
+          contratos <- dados |> purrr::pluck('contratos')
+          atualizado <- dados |> purrr::pluck('atualizado')
+          
+          if (lubridate::dmy(atualizado) == Sys.Date()) {
+                    logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
+                    return()
+          }
+          
+          if (!exists('contratos') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
+                    source('../src/organizar.R')
+                    contratos <- consolidar.contratos.anual.seges() |> 
+                              dplyr::select(id, numero)
+          }
+          
+          resultados <- list()
+          n.recursos <<- 0
+          total.recursos <<- 0
+          recurso <- 'contrato'
+          
+          for (i in seq_along(contratos$id)) {
+                    id <- contratos$id[i]
+                    numero <- contratos$numero[i]
+                    
+                    logger::log_info('Iniciando a consulta número {numero} de um total de {total}.',
+                                     numero = which(contratos$id == id),
+                                     total = nrow(contratos))
+                    
+                    resultados[[length(resultados) + 1]] <- raspar.comprasnet(id, numero, recurso)
+          }
+          
+          consulta <- data.table::rbindlist(resultados)
+          # consultado <- do.call(rbind, resultados)
+          
+          if (nrow(contratos) != nrow(consultado)) {
+                    
+                    contratos <- contratos |> 
+                              dplyr::filter(id %in% consultado$contrato_id)
+          }
+          
+          atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
+          
+          dados$atualizado <- atualizado
+          dados$consultado <- consultado
+          
+          readr::write_rds(dados, arquivo)
+          
+}
+
 importar.recurso.comprasnet <- function(recurso) {
           # recurso <- 'terceirizados'
 
@@ -35,9 +88,7 @@ importar.recurso.comprasnet <- function(recurso) {
           }
           
           if (!exists('contratos') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
-                    source('../src/organizar.R')
-                    contratos <- consolidar.contratos.anual.seges() |> 
-                              dplyr::select(id, numero)
+                    contratos <- readr::read_rds('../rds/contratos.rds') |> purrr::pluck('contratos')
           }
           
           if (lubridate::dmy(atualizado) == Sys.Date()) {
@@ -45,7 +96,6 @@ importar.recurso.comprasnet <- function(recurso) {
                     return()
           }
           
-
           resultados <- list()
           n.recursos <<- 0
           total.recursos <<- 0
@@ -61,18 +111,19 @@ importar.recurso.comprasnet <- function(recurso) {
                     resultados[[length(resultados) + 1]] <- raspar.comprasnet(id, numero, recurso)
           }
           
-          # consulta <- data.table::rbindlist(resultados)
-          consulta <- do.call(rbind, resultados)
+          consulta <- data.table::rbindlist(resultados)
+          # consultado <- do.call(rbind, resultados)
           
-          if (length(contratos) != nrow(consulta)) {
+          if (length(contratos) != nrow(consultado)) {
 
                     contratos <- contratos |> 
-                              dplyr::filter(id %in% consulta$contrato_id)
+                              dplyr::filter(id %in% consultado$contrato_id)
           }
           
           atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
           
-          dados <- list(atualizado = atualizado, contratos = contratos, consultado = consulta)
+          dados$atualizado <- atualizado
+          dados$consultado <- consultado
           
           readr::write_rds(dados, arquivo)
           
@@ -229,7 +280,9 @@ raspar.comprasnet <- function(id, numero, recurso) {
           }
           
           endereco <-
-                    epoxy::epoxy('https://contratos.comprasnet.gov.br/api/v1/contrato/{id}/{recurso}')
+                    ifelse(recurso == 'contrato', 
+                           epoxy::epoxy('https://contratos.comprasnet.gov.br/api/v1/contrato/id/{id}'),
+                           epoxy::epoxy('https://contratos.comprasnet.gov.br/api/v1/contrato/{id}/{recurso}'))
           
           resposta <-
                     httr::GET(endereco, httr::add_headers(.headers = cabecalho))
