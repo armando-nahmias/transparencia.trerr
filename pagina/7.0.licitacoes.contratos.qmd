@@ -54,12 +54,14 @@ No contrato de aquisição de combustível, o valor a ser pago tem como referên
 
 ```{r}
 #| echo: false
+terceirizados <- readr::read_rds('../rds/terceirizados.rds') |>
+          purrr::pluck('consultado')
 
-contratos.terceirizados <- ''
-terceirizados <- ''
+contratos <- readr::read_rds('../rds/contratos.rds') |>
+          purrr::pluck('organizado')
 ```
 
-O TRERR possui `r length(contratos.terceirizados)` contratos de terceirização, o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na [página de terceirizados](8.65.2.terceirizados.qmd).
+O TRERR possui `r length(unique(terceirizados$contrato_id))` contratos de terceirização (de um total de `r nrow(contratos)` contratos ativos), o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na [página de terceirizados](8.65.2.terceirizados.qmd).
 
 ## Dispensas e Inexigibilidades de Licitação
 

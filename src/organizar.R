@@ -30,18 +30,17 @@ consolidar.contratos.anual.seges <- function() {
                               purrr::map_dfr( ~ readr::read_csv(.x, col_types = colunas),
                                               .id = "origem")
                     
-                    contratos <- dados |>
+                    consolidado <- dados |>
                               dplyr::filter(unidade_codigo %in% UNIDADE.CODIGO) |>
                               dplyr::distinct(id, .keep_all = TRUE)
                     
                     atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
                     
-                    dados <- list(atualizado = atualizado, contratos = contratos)
+                    dados <- list(atualizado = atualizado, consolidado = consolidado)
                     
                     readr::write_rds(dados, arquivo)
                     
           }
-          
           
           return(dados)
 }
@@ -50,7 +49,7 @@ organizar.contratos <- function() {
           arquivo <- '../rds/contratos.rds'
           
           dados <- consolidar.contratos.anual.seges()
-          contratos <- dados |> purrr::pluck('contratos')
+          contratos <- dados |> purrr::pluck('consolidado')
 
           tipo.instrumento <- c('Contrato', 'Carta Contrato', 'Empenho')
           
@@ -90,7 +89,7 @@ organizar.terceirizados <- function() {
           consulta <- dados$consulta
           
           contratos <- readr::read_rds('../rds/contratos.rds') |>
-                    purrr::pluck('contratos') |>
+                    purrr::pluck('consolidado') |>
                     dplyr::select(contrato_id = id, numero, fornecedor_nome)
           
           consolidado <- dplyr::inner_join(contratos, consulta, by = 'contrato_id')
@@ -130,7 +129,7 @@ organizar.garantias <- function() {
           consulta <- dados$consulta
           
           contratos <- readr::read_rds('../rds/contratos.rds') |>
-                    purrr::pluck('contratos') |>
+                    purrr::pluck('consolidado') |>
                     dplyr::select(contrato_id = id, numero, fornecedor_nome)
           
           consolidado <- dplyr::inner_join(contratos, consulta, by = 'contrato_id')
@@ -165,7 +164,7 @@ organizar.arquivos <- function() {
           consulta <- dados$consulta
 
           contratos <- readr::read_rds('../rds/contratos.rds') |>
-                    purrr::pluck('contratos') |>
+                    purrr::pluck('consolidado') |>
                     dplyr::select(contrato_id = id, numero, fornecedor_nome, objeto)
           
           consolidado <- dplyr::inner_join(contratos, consulta, by = 'contrato_id')
