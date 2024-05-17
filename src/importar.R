@@ -28,7 +28,7 @@ importar.contrato.comprasnet <- function() {
           contratos <- dados |> purrr::pluck('contratos')
           atualizado <- dados |> purrr::pluck('atualizado')
           
-          if (lubridate::dmy(atualizado) == Sys.Date()) {
+          if (lubridate::dmy(atualizado) == Sys.Date() && 'consultado' %in% names(dados)) {
                     logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
                     return()
           }
@@ -73,8 +73,9 @@ importar.recurso.comprasnet <- function(recurso) {
           arquivo <- sprintf('../rds/%s.rds', recurso)
           
           if (file.exists(arquivo)) {
-                    contratos <- readr::read_rds(arquivo) |> purrr::pluck('contratos')
-                    atualizado <- readr::read_rds(arquivo) |> purrr::pluck('atualizado')
+                    dados <- readr::read_rds(arquivo)
+                    contratos <- dados |> purrr::pluck('contratos')
+                    atualizado <- dados |> purrr::pluck('atualizado')
                     if (nrow(contratos) == 0) {
                               logger::log_info('Não há contratos para consultar.')
                               return()
@@ -83,7 +84,7 @@ importar.recurso.comprasnet <- function(recurso) {
                               logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
                               return()
                     }
-          } 
+          }
           
           if (!exists('atualizado') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
                     if (file.exists('../rds/contratos.rds')) {
