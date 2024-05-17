@@ -1,53 +1,48 @@
+source('../src/importar.R')
+source('../src/organizar.R')
 
 # Importando os dados -----------------------------------------------------
 
-source('../src/importar.R')
-
 importar.contratos.anual.seges()
 
-importar.precos.combustiveis()
+consolidar.contratos.anual.seges(atualizar = FALSE)
+
+importar.contrato.comprasnet()
 
 lista.recursos <- c(
           'arquivos',
           'garantias',
-          'terceirizados',
-          'cronograma',
-          'despesas_acessorias',
-          'domiciliobancario',
-          'empenhos',
-          'faturas',
-          'historico',
-          'itens',
-          'ocorrencias',
-          'prepostos',
-          'publicacoes',
-          'responsaveis'
+          'terceirizados'
 )
 
 for (recurso in lista.recursos) importar.recurso.comprasnet(recurso)
 
-
-
-# Tratando os dados -------------------------------------------------------
-
-source('../src/organizar.R')
-
-organizar.contratos()
-
-organizar.terceirizados()
-
-organizar.garantias()
-
-organizar.arquivos()
-
-# Formatando os dados -------------------------------------------------------
-
-source('../src/formatar.R')
-
-formatar.terceirizados()
-
-formatar.contratos()
-
-formatar.garantias()
-
-formatar.combustiveis()
+importar.precos.combustiveis()
+# 
+# # Tratando os dados -------------------------------------------------------
+# 
+# source('../src/organizar.R')
+# 
+# organizar.contratos()
+# 
+# organizar.terceirizados()
+# 
+# organizar.garantias()
+# 
+# organizar.arquivos()
+# 
+# organizar.combustiveis()
+# 
+# # Formatando os dados -------------------------------------------------------
+# 
+# source('../src/formatar.R')
+# 
+# formatar.terceirizados()
+# 
+# formatar.contratos()
+# 
+# formatar.garantias()
+# 
+# formatar.combustiveis()
+# 
+# formatar.arquivos()
