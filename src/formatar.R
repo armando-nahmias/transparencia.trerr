@@ -6,6 +6,7 @@ formatar.terceirizados <- function() {
           
           atualizado <- dados |> purrr::pluck('atualizado')
           organizado <- dados |> purrr::pluck('organizado')
+          if (nrow(organizado) == 0) return()
           
           formatado <- organizado |>
                     dplyr::select(-Contrato, -Fornecedor) |>
@@ -117,6 +118,7 @@ formatar.garantias <- function() {
           
           atualizado <- dados |> purrr::pluck('atualizado')
           organizado <- dados |> purrr::pluck('organizado')
+          if (nrow(organizado) == 0) return()
 
           formatado <- organizado |>
                     dplyr::select(-Ano) |> 
@@ -188,6 +190,7 @@ formatar.arquivos <- function() {
           
           atualizado <- dados |> purrr::pluck('atualizado')
           organizado <- dados |> purrr::pluck('organizado')
+          if (nrow(organizado) == 0) return()
           
           formatado <- organizado |>
                     dplyr::select(Tipo, `Descrição`, Objeto) |> 
