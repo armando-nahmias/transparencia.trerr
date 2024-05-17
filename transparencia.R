@@ -5,7 +5,7 @@ source('../src/organizar.R')
 
 importar.contratos.anual.seges()
 
-consolidar.contratos.anual.seges(atualizar = FALSE)
+consolidar.contratos.anual.seges(atualizar = TRUE)
 
 importar.contrato.comprasnet()
 
