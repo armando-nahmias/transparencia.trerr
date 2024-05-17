@@ -1,50 +1,3 @@
-
-
-consolidar.contratos.anual.seges <- function() {
-          arquivo <- '../rds/contratos.rds'
-          
-          if (file.exists(arquivo)) {
-                    dados <- readr::read_rds(arquivo)
-                    
-                    contratos <- dados |> purrr::pluck('contratos')
-                    atualizado <- dados |> purrr::pluck('atualizado')
-                    if (lubridate::week(lubridate::dmy(atualizado)) != lubridate::week(Sys.Date())) {
-                              atualizar <- TRUE
-                    }
-          } else {
-                    atualizar <- TRUE
-          }
-          
-          if (exists('atualizar')) {
-                    UNIDADE.CODIGO <- readr::read_rds('../configuracao/unidade.codigo.rds')
-                    
-                    destinos <- list.files(
-                              path = '../dados',
-                              pattern = 'seges.contratos.anual',
-                              full.names = TRUE
-                    )
-                    
-                    colunas <- destinos |> dplyr::last() |> readr::spec_csv()
-                    
-                    dados <- destinos |>
-                              purrr::map_dfr( ~ readr::read_csv(.x, col_types = colunas),
-                                              .id = "origem")
-                    
-                    contratos <- dados |>
-                              dplyr::filter(unidade_codigo %in% UNIDADE.CODIGO) |>
-                              dplyr::distinct(id)
-                    
-                    atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
-                    
-                    dados <- list(atualizado = atualizado, contratos = contratos)
-                    
-                    readr::write_rds(dados, arquivo)
-                    
-          }
-          
-          return(dados)
-}
-
 organizar.contratos <- function() {
           arquivo <- '../rds/contratos.rds'
           
@@ -225,3 +178,48 @@ organizar.combustiveis <- function() {
           
 }
 
+# Funções secundárias -----------------------------------------------------
+consolidar.contratos.anual.seges <- function(atualizar = FALSE) {
+          arquivo <- '../rds/contratos.rds'
+          
+          if (file.exists(arquivo)) {
+                    dados <- readr::read_rds(arquivo)
+                    
+                    contratos <- dados |> purrr::pluck('contratos')
+                    atualizado <- dados |> purrr::pluck('atualizado')
+                    if (lubridate::week(lubridate::dmy(atualizado)) != lubridate::week(Sys.Date())) {
+                              atualizar <- TRUE
+                    }
+          } else {
+                    atualizar <- TRUE
+          }
+          
+          if (atualizar == TRUE) {
+                    UNIDADE.CODIGO <- readr::read_rds('../configuracao/unidade.codigo.rds')
+                    
+                    destinos <- list.files(
+                              path = '../dados',
+                              pattern = 'seges.contratos.anual',
+                              full.names = TRUE
+                    )
+                    
+                    colunas <- destinos |> dplyr::last() |> readr::spec_csv()
+                    
+                    dados <- destinos |>
+                              purrr::map_dfr( ~ readr::read_csv(.x, col_types = colunas),
+                                              .id = "origem")
+                    
+                    contratos <- dados |>
+                              dplyr::filter(unidade_codigo %in% UNIDADE.CODIGO) |>
+                              dplyr::distinct(id, numero)
+                    
+                    atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
+                    
+                    dados <- list(atualizado = atualizado, contratos = contratos)
+                    
+                    readr::write_rds(dados, arquivo)
+                    
+          }
+          
+          return(dados)
+}

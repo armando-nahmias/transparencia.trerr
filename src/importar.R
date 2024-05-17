@@ -33,12 +33,13 @@ importar.contrato.comprasnet <- function() {
                     return()
           }
           
-          if (!exists('contratos') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
+          if (lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
                     source('../src/organizar.R')
-                    contratos <- consolidar.contratos.anual.seges() |> 
-                              dplyr::select(id, numero)
+                    dados <- consolidar.contratos.anual.seges()
+                    contratos <- dados |> purrr::pluck('contratos') |> dplyr::select(id, numero)
+                    atualizado <- dados |> purrr::pluck('atualizado')
           }
-          
+
           resultados <- list()
           n.recursos <<- 0
           total.recursos <<- 0
@@ -55,15 +56,8 @@ importar.contrato.comprasnet <- function() {
                     resultados[[length(resultados) + 1]] <- raspar.comprasnet(id, numero, recurso)
           }
           
-          consulta <- data.table::rbindlist(resultados)
-          # consultado <- do.call(rbind, resultados)
-          
-          if (nrow(contratos) != nrow(consultado)) {
-                    
-                    contratos <- contratos |> 
-                              dplyr::filter(id %in% consultado$contrato_id)
-          }
-          
+          consultado <- data.table::rbindlist(resultados)
+
           atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
           
           dados$atualizado <- atualizado
@@ -74,26 +68,31 @@ importar.contrato.comprasnet <- function() {
 }
 
 importar.recurso.comprasnet <- function(recurso) {
-          # recurso <- 'terceirizados'
+          # recurso <- 'garantias'
 
           arquivo <- sprintf('../rds/%s.rds', recurso)
           
           if (file.exists(arquivo)) {
                     contratos <- readr::read_rds(arquivo) |> purrr::pluck('contratos')
                     atualizado <- readr::read_rds(arquivo) |> purrr::pluck('atualizado')
+                    if (nrow(contratos) == 0) {
+                              logger::log_info('Não há contratos para consultar.')
+                              return()
+                    }
+                    if (lubridate::dmy(atualizado) == Sys.Date()) {
+                              logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
+                              return()
+                    }
           } 
           
-          if (nrow(contratos) == 0) {
-                    return()
-          }
-          
-          if (!exists('contratos') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
-                    contratos <- readr::read_rds('../rds/contratos.rds') |> purrr::pluck('contratos')
-          }
-          
-          if (lubridate::dmy(atualizado) == Sys.Date()) {
-                    logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
-                    return()
+          if (!exists('atualizado') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
+                    if (file.exists('../rds/contratos.rds')) {
+                              dados <- readr::read_rds('../rds/contratos.rds')
+                    } else {
+                              source('../src/organizar.R')
+                              dados <- consolidar.contratos.anual.seges()
+                    }
+                    contratos <- dados |> purrr::pluck('contratos') |> dplyr::select(id, numero)
           }
           
           resultados <- list()
@@ -111,9 +110,8 @@ importar.recurso.comprasnet <- function(recurso) {
                     resultados[[length(resultados) + 1]] <- raspar.comprasnet(id, numero, recurso)
           }
           
-          consulta <- data.table::rbindlist(resultados)
-          # consultado <- do.call(rbind, resultados)
-          
+          consultado <- data.table::rbindlist(resultados)
+
           if (length(contratos) != nrow(consultado)) {
 
                     contratos <- contratos |> 
@@ -123,6 +121,7 @@ importar.recurso.comprasnet <- function(recurso) {
           atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
           
           dados$atualizado <- atualizado
+          dados$contratos <- contratos
           dados$consultado <- consultado
           
           readr::write_rds(dados, arquivo)

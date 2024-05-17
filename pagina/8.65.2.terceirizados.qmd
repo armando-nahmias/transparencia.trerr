@@ -8,9 +8,9 @@ A atualização do Anexo V ocorre anualmente ou sempre que há modificação das
 ```{r }
 #| include: false
 
-source('../src/importar.R')
+source('../src/organizar.R')
 
-importar.recurso.comprasnet('terceirizados')
+organizado <- organizar.terceirizados()
 
 ```
 
@@ -20,10 +20,6 @@ Em resumo, os terceirizados estão distribuídos da seguinte forma:
 
 ```{r }
 #| echo: false
-
-source('../src/organizar.R')
-
-organizado <- organizar.terceirizados()
 
 organizado |>
   dplyr::group_by(Fornecedor, Contrato) |>

@@ -6,10 +6,6 @@
 #| echo: false
 #| message: false
 
-source('../src/importar.R')
-
-importar.precos.combustiveis()
-
 source('../src/organizar.R')
 
 organizado <- organizar.combustiveis()

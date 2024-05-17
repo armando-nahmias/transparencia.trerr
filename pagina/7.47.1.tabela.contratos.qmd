@@ -4,10 +4,6 @@
 ```{r }
 #| include: false
 
-source('../src/importar.R')
-
-importar.contratos.anual.seges()
-
 source('../src/organizar.R')
 
 organizado.contratos <- organizar.contratos()
