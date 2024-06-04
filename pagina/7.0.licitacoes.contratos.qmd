@@ -1,12 +1,14 @@
 # Sétima Seção: Licitações, Contratos e Instrumentos de Cooperação
 
-O Tribunal Regional Eleitoral de Roraima (TRERR) se compromete com a máxima transparência em seus processos de licitações, contratações e instrumentos de cooperação. Esta seção disponibiliza informações detalhadas, promovendo a clareza e permitindo o escrutínio público.
+Este portal divulga as informações relativas a procedimentos licitatórios no âmbito do TRERR.
 
 ## Licitações
 
 ### 41. Estudos Técnicos Preliminares da Contratação
 
 Disponibilizamos a íntegra dos Estudos Técnicos Preliminares das contratações, essenciais para a compreensão do processo licitatório, a menos que sejam considerados sigilosos.
+
+Os Estudos Técnicos Preliminares antecedem a elaboração do Termo de Referência/Projeto Básico. Por meio desse documento, analisa-se a viabilidade e a estratégia para a contratação. Informamos que, para ser considerada válida, a página deve conter os Estudos Preliminares de todas as contratações, tanto de licitações quanto de contratações diretas (dispensas e inexigibilidades).
 
 [Consulte os Estudos Técnicos Preliminares](pagina.em.construcao.qmd)
 
@@ -20,11 +22,12 @@ Publicamos o Mapa Comparativo de Preços, documento conclusivo sobre o Valor Est
 
 A íntegra dos editais de licitação e seus respectivos anexos, incluindo projeto básico ou termo de referência e minutas, são disponibilizados para consulta.
 
-[Consulte os Editais de Licitação](pagina.em.construcao.qmd)
+[Consulte os Editais de Licitação](7.43.0.licitacoes.qmd)
 
 ### 44-45. Questionamentos e Impugnações
 
-Publicamos todos os questionamentos e impugnações apresentados entre a publicação do edital e a abertura da sessão pública, garantindo a transparência do processo.
+Publicamos todos os [questionamentos](pagina.em.construcao.qmd) e [impugnações](pagina.em.construcao.qmd)
+ apresentados entre a publicação do edital e a abertura da sessão pública, garantindo a transparência do processo.
 
 [Veja Questionamentos e Impugnações](pagina.em.construcao.qmd)
 
@@ -36,7 +39,13 @@ Divulgamos o nome do vencedor de cada licitação, reforçando nosso compromisso
 
 ### 47-49. Contratos e Termos Aditivos
 
-A [íntegra dos contratos firmados e dos Termos Aditivos assinados](7.47.0.integra.contratos.qmd) é disponibilizada, permitindo o acompanhamento e a fiscalização dos acordos realizados.
+A [íntegra dos contratos firmados](7.47.0.integra.contratos.qmd) é disponibilizada, permitindo o acompanhamento e a fiscalização dos acordos realizados.
+
+A [íntegra dos termos aditivos](7.47.0.integra.contratos.qmd) é disponibilizada, permitindo o acompanhamento e a fiscalização dos acordos realizados.
+
+#### Tabela das Atas de Registros de Preços
+
+Pode-se [consultar a tabela das Atas de Registros de Preços](7.47.4.atas.qmd).
 
 #### Tabela dos contratos ativos
 
@@ -52,28 +61,28 @@ No contrato de aquisição de combustível, o valor a ser pago tem como referên
 
 #### Lista de Terceirizados
 
-```{r}
-#| echo: false
-
-terceirizados <- readr::read_rds('../rds/terceirizados.rds') |>
-          purrr::pluck('consultado')
-
-contratos <- readr::read_rds('../rds/contratos.rds') |>
-          purrr::pluck('organizado')
+O TRERR possui contratos de terceirização, o que se traduz em uma melhoria significativa da sua força de trabalho. Os detalhes podem ser consultados na [página de terceirizados](8.65.2.terceirizados.qmd).
 
 
-```
-O TRERR possui `r length(unique(terceirizados$contrato_id))` contratos de terceirização (de um total de `r nrow(contratos)` contratos ativos), o que se traduz em uma melhoria significativa da sua força de trabalho, trazendo um total de `r nrow(terceirizados)` terceirizados. Os detalhes podem ser consultados na [página de terceirizados](8.65.2.terceirizados.qmd).
-
-
-
-## Dispensas e Inexigibilidades de Licitação
+#### Dispensabilidades e Inexigibilidades
 
 ### 50-51. Projeto Básico e Autorização
 
 Publicamos a íntegra do Projeto Básico, Termo de Referência e a autorização da dispensa ou inexigibilidade de licitação, exceto quando considerados sigilosos.
 
 [Veja Projeto Básico e Autorização](pagina.em.construcao.qmd)
+
+### 50. Projeto Básico
+
+Publicamos a íntegra do Projeto Básico ou Termo de Referência da dispensabilidade ou inexigibilidade de licitação, exceto quando considerados sigilosos.
+
+[Veja Projeto Básico](pagina.em.construcao.qmd)
+
+### 51. Autorização
+
+Publicamos a íntegra da autorização da dispensa ou inexigibilidade de licitação, exceto quando considerados sigilosos.
+
+[Veja Autorização](pagina.em.construcao.qmd)
 
 ## Instrumentos de Cooperação
 

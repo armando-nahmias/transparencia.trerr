@@ -1,0 +1,51 @@
+## 43. Licitações
+
+
+```{r }
+#| include: false
+
+source('src/organizar.R')
+
+organizado <- organizar.pncp.publicacao() |> 
+          dplyr::filter(Modalidade == 'Pregão - Eletrônico')
+
+```
+
+Em resumo, há `r nrow(organizado)` licitações publicadas pelo Tribunal Regional Eleitoral de Roraima, assim distribuídos:
+
+``` {r}
+#| echo: false
+
+organizado |>
+  dplyr::group_by(Ano) |>
+  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
+          kableExtra::kbl()
+
+
+```
+
+Abaixo segue a relação completa das licitações publicadas pelo Tribunal Regional Eleitoral de Roraima.
+
+```{r }
+#| column: page
+#| include: false
+
+source('src/formatar.R')
+
+formatado <- formatar.pncp.publicacao('pregao')
+```
+
+
+```{r }
+#| column: page
+#| echo: false
+
+
+formatado
+```
+
+
+A lista de licitações pode ser [baixada em pdf](../saida/publicacao.pdf), [em versão html](../saida/publicacao.html) ou num [arquivo csv](../saida/publicacao.csv).
+
+
+

@@ -6,7 +6,7 @@
 #| echo: false
 #| message: false
 
-source('../src/organizar.R')
+source('src/organizar.R')
 
 organizado <- organizar.combustiveis()
 
@@ -23,7 +23,7 @@ Este relatório apresenta o preço médio dos combustíveis, apresentando inform
 #| echo: false
 #| message: false
 
-arquivo <- '../rds/combustiveis.rds'
+arquivo <- 'rds/combustiveis.rds'
 atualizado <- readr::read_rds(arquivo) |> purrr::pluck('atualizado')
 
 
@@ -76,16 +76,6 @@ formatado
 
 
 ## Relatório Mensal
-
-
-
-```{r }
-#| echo: false
-#| message: false
-
-
-```
-
 
 Abaixo, segue tabela contendo a última média mensal de preços relativos ao Levantamento de Preços de Combustíveis.
 

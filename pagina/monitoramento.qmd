@@ -6,7 +6,7 @@ Estamos comprometidos em manter este Portal atualizado regularmente, apresentand
 ```{r include=FALSE}
 
 # monitoramento <-
-#           readr::read_rds('../rds/monitoramento.rds') |> 
+#           readr::read_rds('rds/monitoramento.rds') |> 
 #           dplyr::arrange(Item) |> 
 #           dplyr::mutate(Atualizado = ifelse(is.na(Atualizado), NA, format(Atualizado, '%d/%m/%Y')))
 # 

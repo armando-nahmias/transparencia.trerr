@@ -1,5 +1,5 @@
 organizar.contratos <- function() {
-          arquivo <- '../rds/contratos.rds'
+          arquivo <- 'rds/contratos.rds'
           
           dados <- consolidar.contratos.anual.seges()
           contratos <- dados |> purrr::pluck('consultado')
@@ -39,18 +39,18 @@ organizar.contratos <- function() {
 }
 
 organizar.terceirizados <- function() {
-          arquivo <- '../rds/terceirizados.rds'
+          arquivo <- 'rds/terceirizados.rds'
           dados <- readr::read_rds(arquivo)
           consulta <- dados$consulta
           
-          contratos <- readr::read_rds('../rds/contratos.rds') |>
+          contratos <- readr::read_rds('rds/contratos.rds') |>
                     purrr::pluck('consultado') |>
                     dplyr::select(contrato_id = id, numero, fornecedor_nome)
           
           consolidado <- dplyr::inner_join(contratos, consulta, by = 'contrato_id')
           
           organizado <- consolidado |>
-                    dplyr::filter(situacao == 'Ativo') |> 
+                    # dplyr::filter(situacao == 'Ativo') |>
                     dplyr::mutate(
                               nome = sapply(strsplit(usuario, ' - '), '[[', 2),
                               ano = stringr::str_match(numero, pattern = "\\/(\\d{4})")[, 2],
@@ -79,11 +79,11 @@ organizar.terceirizados <- function() {
 }
 
 organizar.garantias <- function() {
-          arquivo <- '../rds/garantias.rds'
+          arquivo <- 'rds/garantias.rds'
           dados <- readr::read_rds(arquivo)
           consulta <- dados$consulta
           
-          contratos <- readr::read_rds('../rds/contratos.rds') |>
+          contratos <- readr::read_rds('rds/contratos.rds') |>
                     purrr::pluck('consultado') |>
                     dplyr::select(contrato_id = id, numero, fornecedor_nome)
           
@@ -98,12 +98,11 @@ organizar.garantias <- function() {
                               valor = stringr::str_remove_all(valor, '\\.'),
                               valor = as.numeric(stringr::str_replace_all(valor, ',', '.')),
                               Valor = scales::dollar(valor, prefix = "R$ ", decimal.mark = ",", big.mark = ".", accuracy = 0.01),
-                              `Situação` = ifelse(vencimento < Sys.Date(), 'Expirada', 'Ativa'),
                               Vencimento = format(as.Date(vencimento), "%d/%m/%Y")
                     ) |> 
                     dplyr::distinct(contrato_id, .keep_all = TRUE) |> 
                     dplyr::arrange(Ano, Contrato) |> 
-                    dplyr::select(Ano, Contrato, Fornecedor, Tipo, Valor, Vencimento, `Situação`)
+                    dplyr::select(Ano, Contrato, Fornecedor, Tipo, Valor, Vencimento)
           
           dados$organizado <- organizado
           
@@ -114,11 +113,11 @@ organizar.garantias <- function() {
 }
 
 organizar.arquivos <- function() {
-          arquivo <- '../rds/arquivos.rds'
+          arquivo <- 'rds/arquivos.rds'
           dados <- readr::read_rds(arquivo)
           consulta <- dados$consulta
 
-          contratos <- readr::read_rds('../rds/contratos.rds') |>
+          contratos <- readr::read_rds('rds/contratos.rds') |>
                     purrr::pluck('consultado') |>
                     dplyr::select(contrato_id = id, numero, fornecedor_nome, objeto)
           
@@ -143,7 +142,7 @@ organizar.arquivos <- function() {
 }
 
 organizar.combustiveis <- function() {
-          arquivo <- '../rds/combustiveis.rds'
+          arquivo <- 'rds/combustiveis.rds'
           dados <- readr::read_rds(arquivo)
           
           consultado <- dados |> purrr::pluck('consultado')
@@ -178,9 +177,108 @@ organizar.combustiveis <- function() {
           
 }
 
+organizar.pncp.atas <- function() {
+          arquivo <- 'rds/pncp.atas.rds'
+          dados <- readr::read_rds(arquivo)
+          
+          consultado <- dados |> purrr::pluck('consultado')
+          atualizado <- dados |> purrr::pluck('atualizado')
+          
+          organizado <- consultado |>
+                    dplyr::distinct(numeroControlePNCPAta, .keep_all = TRUE) |> 
+                    dplyr::mutate(
+                              dplyr::across(c("anoAta", "usuario", "codigoUnidadeOrgao", "nomeUnidadeOrgao"), as.factor),
+                              dplyr::across(c("dataCancelamento", "dataAssinatura", "vigenciaInicio", "vigenciaFim", "dataPublicacaoPncp", "dataInclusao", "dataAtualizacao"),
+                                            ~ format(as.Date(.), format = "%d/%m/%Y")),
+                              dplyr::across(c("cnpjOrgaoSubrogado", "nomeOrgaoSubrogado", "codigoUnidadeOrgaoSubrogado", "nomeUnidadeOrgaoSubrogado"), as.character),
+                              anoContratacao = stringr::str_extract(numeroControlePNCPAta, "(?<=/)\\d{4}(?=-)"),
+                              controlePNCP = stringr::str_extract(numeroControlePNCPAta, "(?<=-)\\d{6}(?=/)"),
+                              controleARP = stringr::str_extract(numeroControlePNCPAta, "(?<=-)\\d+$"),
+                              edital = stringr::str_c("https://pncp.gov.br/app/editais/", cnpjOrgao, "/", anoContratacao, "/", controlePNCP),
+                              ata = stringr::str_replace(edital, "/editais/", "/atas/") |>
+                                        stringr::str_c('/', controleARP),
+                              situacao = ifelse(vigenciaInicio > as.Date('2024-05-20'), 'Ativo', 'Expirado'),
+                              licitacao = 'Licitação'
+                    ) |>
+                    dplyr::select(Ano = anoAta,
+                                  `Número` = numeroAtaRegistroPreco,
+                                  `Vigência` = vigenciaFim,
+                                  `Licitação` = licitacao,
+                                  Objeto = objetoContratacao,
+                                  Edital = edital,
+                                  Ata = ata) |> 
+                    dplyr::arrange(Ano, `Número`)
+          
+
+          dados$organizado <- organizado
+          
+          readr::write_rds(dados, arquivo)
+          
+          return(organizado)
+          
+}
+
+organizar.pncp.proposta <- function() {
+          arquivo <- 'rds/pncp.proposta.rds'
+          dados <- readr::read_rds(arquivo)
+          
+          atualizado <- dados |> purrr::pluck('atualizado')
+          consultado <- dados |> purrr::pluck('consultado')
+          if (nrow(consultado) == 0) return(consultado)
+          
+          organizado <- consultado
+          
+          dados$organizado <- organizado
+          
+          readr::write_rds(dados, arquivo)
+          
+          return(organizado)
+          
+}
+
+organizar.pncp.publicacao <- function() {
+          arquivo <- 'rds/pncp.publicacao.rds'
+          dados <- readr::read_rds(arquivo)
+          
+          atualizado <- dados |> purrr::pluck('atualizado')
+          consultado <- dados |> purrr::pluck('consultado')
+          if (nrow(consultado) == 0) return(consultado)
+          
+          organizado <- consultado |> 
+                    dplyr::mutate(
+                              anoCompra = as.factor(anoCompra),
+                              valorTotalHomologado = scales::dollar(valorTotalHomologado, prefix = "R$ ", decimal.mark = ",", big.mark = ".", accuracy = 0.01),
+                              valorTotalEstimado = scales::dollar(valorTotalEstimado, prefix = "R$ ", decimal.mark = ",", big.mark = ".", accuracy = 0.01),
+                              cnpjOrgao = stringr::str_extract(numeroControlePNCP, "\\d{14}"),
+                              controlePNCP = stringr::str_extract(numeroControlePNCP, "(?<=-)(\\d{6})"),
+                              anoContratacao = stringr::str_extract(numeroControlePNCP, "\\d{4}$"),
+                              edital = stringr::str_c("https://pncp.gov.br/app/editais/", cnpjOrgao, "/", anoContratacao, "/", controlePNCP),
+                              edital = htmltools::htmlEscape(edital),
+                              linkSistemaOrigem = htmltools::htmlEscape(linkSistemaOrigem)
+                    ) |> 
+                    dplyr::select(
+                              Ano = anoCompra,
+                              `Número` = numeroCompra,
+                              Modalidade = modalidadeNome,
+                              Objeto = objetoCompra,
+                              Estimado = valorTotalEstimado,
+                              Homologado = valorTotalHomologado,
+                              Edital = edital,
+                              `Acompanhar` = linkSistemaOrigem
+                    ) |> 
+                    dplyr::arrange(Ano, `Número`)
+          
+          dados$organizado <- organizado
+          
+          readr::write_rds(dados, arquivo)
+          
+          return(organizado)
+          
+}
+
 # Funções secundárias -----------------------------------------------------
 consolidar.contratos.anual.seges <- function(atualizar = FALSE) {
-          arquivo <- '../rds/contratos.rds'
+          arquivo <- 'rds/contratos.rds'
           
           if (file.exists(arquivo)) {
                     dados <- readr::read_rds(arquivo)
@@ -195,10 +293,10 @@ consolidar.contratos.anual.seges <- function(atualizar = FALSE) {
           }
           
           if (atualizar == TRUE) {
-                    UNIDADE.CODIGO <- readr::read_rds('../configuracao/unidade.codigo.rds')
+                    UNIDADE.CODIGO <- readr::read_rds('configuracao/unidade.codigo.rds')
                     
                     destinos <- list.files(
-                              path = '../dados',
+                              path = 'dados',
                               pattern = 'seges.contratos.anual',
                               full.names = TRUE
                     )
@@ -223,3 +321,4 @@ consolidar.contratos.anual.seges <- function(atualizar = FALSE) {
           
           return(dados)
 }
+

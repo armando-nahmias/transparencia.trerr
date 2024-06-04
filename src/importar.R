@@ -1,7 +1,9 @@
 
+# seges -------------------------------------------------------------------
+
 importar.contratos.anual.seges <- function() {
           anos <- seq(2021, as.numeric(format(Sys.Date(), "%Y")))
-          destinos <- sprintf('../dados/seges.contratos.anual.%s.csv', anos)
+          destinos <- sprintf('dados/seges.contratos.anual.%s.csv', anos)
           arquivos <-
                     sprintf('comprasnet-contratos-anual-contratos-%s.csv',
                             anos)
@@ -20,23 +22,25 @@ importar.contratos.anual.seges <- function() {
                                progress = TRUE)
 }
 
+# comprasnet --------------------------------------------------------------
+
 importar.contrato.comprasnet <- function() {
           
-          arquivo <- '../rds/contratos.rds'
+          arquivo <- 'rds/contratos.rds'
           dados <- readr::read_rds(arquivo)
           
           contratos <- dados |> purrr::pluck('contratos')
           atualizado <- dados |> purrr::pluck('atualizado')
           
           if (lubridate::dmy(atualizado) == Sys.Date() && 'consultado' %in% names(dados)) {
-                    logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
+                    logger::log_info('Não é necessário baixar novamente, pois a última atualização é de hoje.')
                     return()
           }
           
           if (lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
-                    source('../src/organizar.R')
+                    source('src/organizar.R')
                     dados <- consolidar.contratos.anual.seges()
-                    contratos <- dados |> purrr::pluck('contratos') |> dplyr::select(id, numero)
+                    contratos <- dados |> purrr::pluck('contratos')
                     atualizado <- dados |> purrr::pluck('atualizado')
           }
 
@@ -70,7 +74,7 @@ importar.contrato.comprasnet <- function() {
 importar.recurso.comprasnet <- function(recurso) {
           # recurso <- 'garantias'
 
-          arquivo <- sprintf('../rds/%s.rds', recurso)
+          arquivo <- sprintf('rds/%s.rds', recurso)
           
           if (file.exists(arquivo)) {
                     dados <- readr::read_rds(arquivo)
@@ -81,19 +85,19 @@ importar.recurso.comprasnet <- function(recurso) {
                               return()
                     }
                     if (lubridate::dmy(atualizado) == Sys.Date()) {
-                              logger::log_info('Não é necessário baixar novamente, pois a última atualização é de {atualizado}.')
+                              logger::log_info('Não é necessário baixar novamente, pois a última atualização é de hoje.')
                               return()
                     }
           }
           
           if (!exists('atualizado') || lubridate::month(lubridate::dmy(atualizado)) != lubridate::month(Sys.Date())) {
-                    if (file.exists('../rds/contratos.rds')) {
-                              dados <- readr::read_rds('../rds/contratos.rds')
+                    if (file.exists('rds/contratos.rds')) {
+                              dados <- readr::read_rds('rds/contratos.rds')
                     } else {
-                              source('../src/organizar.R')
+                              source('src/organizar.R')
                               dados <- consolidar.contratos.anual.seges()
                     }
-                    contratos <- dados |> purrr::pluck('contratos') |> dplyr::select(id, numero)
+                    contratos <- dados |> purrr::pluck('contratos')
           }
           
           resultados <- list()
@@ -129,16 +133,139 @@ importar.recurso.comprasnet <- function(recurso) {
           
 }
 
-importar.precos.combustiveis <- function() {
-          arquivo <- '../rds/combustiveis.rds'
 
+# pncp --------------------------------------------------------------------
+
+importar.pncp.recursos <- function() {
+          cnpj.orgao <<- '00509018000113'
+          codigo.unidade <<- '070028'
+          recursos <- c('contratos', 'atas')
+          modalidade <- list("Inexistente" = 99)
+          
+          for (recurso in recursos) {
+                    consultado <- tibble::tibble()
+                    pagina <- 1
+                    data.inicial <- '20230101'
+                    data.final <- stringr::str_remove_all(Sys.Date(), '-')
+                    sequencia.datas <- gerar.sequencia.datas(data.inicial, data.final)
+                    
+                    for (i in seq_len(nrow(sequencia.datas))) {
+                              data.inicio <- sequencia.datas$datas.inicio[i]
+                              data.fim <- sequencia.datas$datas.fim[i]
+                              
+                              consulta <<- TRUE
+                              pagina <- 1
+                              
+                              while (consulta) {
+                                        resultado <- raspar.pncp(
+                                                  recurso,
+                                                  modalidade,
+                                                  data.inicio,
+                                                  data.fim,
+                                                  pagina
+                                        )
+                                        if (!is.null(resultado)) {
+                                                  consultado <- dplyr::bind_rows(consultado,
+                                                                                 resultado)
+                                        }
+                                        pagina <- pagina + 1
+                              }
+                              
+                    }
+                    
+                    atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
+                    
+                    dados <- list(atualizado = atualizado,
+                                  consultado = consultado)
+                    
+                    if (!exists('erro')) {
+                              readr::write_rds(dados,
+                                               epoxy::epoxy('rds/pncp.{recurso}.rds'))
+                    } else {
+                              rm('erro')
+                    }
+                    
+          }
+}
+
+importar.pncp.publicacao <- function() {
+          cnpj.orgao <<- '00509018000113'
+          codigo.unidade <<- '070028'
+          recurso <<- c('publicacao')
+          modalidades <<- list(
+                    # "Leilao" = 1,
+                    # "Dialogo" = 2,
+                    # "Concurso" = 3,
+                    # "ConcorrenciaEletronica" = 4,
+                    # "ConcorrenciaPresencial" = 5,
+                    # "PregaoPresencial" = 7,
+                    # "Interesse" = 10,
+                    # "Prequalificacao" = 11,
+                    # "Credenciamento" = 12,
+                    # "LeilaoPresencial" = 13,
+                    "Dispensabilidade" = 8,
+                    "Inexigibilidade" = 9,
+                    "Pregao" = 6
+          )
+          
+          consultado <- tibble::tibble()
+          pagina <- 1
+          data.inicial <- '20230101'
+          data.final <- stringr::str_remove_all(Sys.Date(), '-')
+          sequencia.datas <- gerar.sequencia.datas(data.inicial, data.final)
+          
+          
+          for (modalidade in modalidades) {
+                    
+                    for (i in seq_len(nrow(sequencia.datas))) {
+                              data.inicio <- sequencia.datas$datas.inicio[i]
+                              data.fim <- sequencia.datas$datas.fim[i]
+                              
+                              consulta <<- TRUE
+                              pagina <- 1
+                              
+                              while (consulta) {
+                                        resultado <- raspar.pncp(
+                                                  recurso,
+                                                  modalidade,
+                                                  data.inicio,
+                                                  data.fim,
+                                                  pagina
+                                        )
+                                        if (!is.null(resultado)) {
+                                                  consultado <- dplyr::bind_rows(consultado,
+                                                                                 resultado)
+                                        }
+                                        pagina <- pagina + 1
+                              }
+                    }
+          }
+          
+          atualizado <- format(Sys.Date(), format = '%d/%m/%Y')
+          
+          dados <- list(atualizado = atualizado, consultado = consultado)
+          
+          if (!exists('erro')) {
+                    readr::write_rds(dados, epoxy::epoxy('rds/pncp.{recurso}.rds'))
+          } else {
+                    rm('erro')
+          }
+          
+}
+
+
+# anp ---------------------------------------------------------------------
+
+importar.precos.combustiveis <- function() {
+          arquivo <- 'rds/combustiveis.rds'
+          
           precos.combustiveis.semanal.fonte <- 'https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/semanal/semanal-municipios-2022-2024.xlsx'
           
           precos.combustiveis.mensal.fonte <- 'https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-revenda-e-de-distribuicao-combustiveis/shlp/mensal/mensal-municipios-jan2022-2024.xlsx'
           
           fontes <- c(semanal = precos.combustiveis.semanal.fonte, mensal = precos.combustiveis.mensal.fonte)
           
-          destinos <- c(semanal = '../dados/anp.precos.medios.semanal.xlsx', mensal = '../dados/anp.precos.medios.mensal.xlsx')
+          destinos <- c(semanal = 'dados/anp.precos.medios.semanal.xlsx', mensal = 'dados/anp.precos.medios.mensal.xlsx')
           
           if (as.POSIXlt(Sys.Date())$wday == 1) file.remove(destinos)
           
@@ -210,7 +337,7 @@ importar.precos.combustiveis <- function() {
                     dplyr::select(1, 2, 4, 5, 6, 8, 9, 11) |>
                     dplyr::rename(setNames(colunas.atuais.semanal, colunas.novas.semanal)) |> 
                     dplyr::mutate(Periodicidade = 'Semanal')
-
+          
           consultado2 <- mensal |>
                     dplyr::filter(`MUNICÍPIO` %in% municipios,
                                   PRODUTO %in% produtos,
@@ -232,6 +359,29 @@ importar.precos.combustiveis <- function() {
 
 # Funções secundárias -----------------------------------------------------
 
+gerar.sequencia.datas <- function(data.inicial, data.final) {
+          # data.inicial <- '20220501'
+          # data.final <- '20240520'
+          
+          ano.inicial <- lubridate::year(lubridate::ymd(data.inicial))
+          ano.final <- lubridate::year(lubridate::ymd(data.final))
+          
+          anos <- ano.inicial:ano.final
+          
+          datas.inicio <- paste0(anos, "0101")
+          datas.fim <- paste0(anos, "1231")
+          
+          sequencia.datas <- tibble::tibble(datas.inicio = datas.inicio, datas.fim = datas.fim)
+          
+          if (data.final != datas.fim[length(datas.fim)]) {
+                    sequencia.datas$datas.fim[nrow(sequencia.datas)] <- data.final
+          }
+          if (data.inicial != datas.inicio[1]) {
+                    sequencia.datas$datas.inicio[1] <- data.inicial
+          }
+          
+          return(sequencia.datas)
+}
 
 raspar.comprasnet <- function(id, numero, recurso) {
           if (!exists('cabecalho')) {
@@ -239,7 +389,7 @@ raspar.comprasnet <- function(id, numero, recurso) {
                               cabecalho <- c(`accept` = "application/json",
                                              `Content-Type` = "application/json")
                               
-                              configuracao <- jsonlite::fromJSON('../configuracao/configuracao.json')
+                              configuracao <- jsonlite::fromJSON('configuracao/configuracao.json')
                               corpo <-
                                         jsonlite::toJSON(
                                                   list(
@@ -318,4 +468,88 @@ raspar.comprasnet <- function(id, numero, recurso) {
                     return(NULL)
           }
 }
+
+raspar.pncp <- function(recurso,
+                        modalidade,
+                        data.inicial,
+                        data.final,
+                        pagina) {
+          if (recurso == 'proposta') {
+                    if (data.final == stringr::str_remove_all(Sys.Date(), '-')) {
+                              ano <- lubridate::year(lubridate::ymd(data.inicial))
+                              data.final <- paste0(ano, "1231")
+                    } else {
+                              logger::log_warn(
+                                        'Não há dados para a consulta da página {pagina} de {recurso} no ano {ano}.',
+                                        ano = lubridate::year(lubridate::ymd(
+                                                  data.inicial
+                                        ))
+                              )
+                              consulta <<- FALSE
+                              erro <<- TRUE
+                              return(NULL)
+                    }
+          }
+          
+          endereco <- dplyr::case_when(
+                    recurso == 'contratos' ~ epoxy::epoxy(
+                              'https://pncp.gov.br/api/consulta/v1/{recurso}?dataInicial={data.inicial}&dataFinal={data.final}&cnpjOrgao={cnpj.orgao}&codigoUnidadeAdministrativa={codigo.unidade}&pagina={pagina}'
+                    ),
+                    recurso == 'atas' ~ epoxy::epoxy(
+                              'https://pncp.gov.br/api/consulta/v1/{recurso}?dataInicial={data.inicial}&dataFinal={data.final}&cnpj={cnpj.orgao}&codigoUnidadeAdministrativa={codigo.unidade}&pagina={pagina}'
+                    ),
+                    recurso == 'publicacao' ~ epoxy::epoxy(
+                              'https://pncp.gov.br/api/consulta/v1/contratacoes/{recurso}?dataInicial={data.inicial}&dataFinal={data.final}&codigoModalidadeContratacao={modalidade}&&cnpj={cnpj.orgao}&codigoUnidadeAdministrativa={codigo.unidade}&pagina={pagina}'
+                    ),
+                    recurso == 'proposta' ~ epoxy::epoxy(
+                              'https://pncp.gov.br/api/consulta/v1/contratacoes/proposta?dataFinal={data.final}&cnpj={cnpj.orgao}&codigoUnidadeAdministrativa={codigo.unidade}&pagina={pagina}'
+                    ),
+                    TRUE ~ NA_character_
+          )
+          
+          if (modalidade == 99) {
+                    logger::log_warn(
+                              'Consultando página {pagina} de {recurso} no ano {ano}.
+                                     Endereço: {endereco}',
+                              ano = lubridate::year(lubridate::ymd(data.inicial))
+                    )
+          } else {
+                    logger::log_warn(
+                              'Consultando página {pagina} da modalidade {nome} de {recurso} no ano {ano}.',
+                              ano = lubridate::year(lubridate::ymd(data.inicial)),
+                              nome = names(modalidades[modalidades == modalidade])
+                    )
+                    
+          }
+          
+          resposta <- httr::GET(endereco)
+          
+          if (resposta$status_code == 200) {
+                    conteudo <- httr::content(resposta,
+                                              as = 'text',
+                                              encoding = 'UTF-8')
+                    dados <- jsonlite::fromJSON(conteudo)
+                    
+                    if (dados$empty == TRUE) {
+                              logger::log_warn('A consulta não retornou resultados.')
+                              consulta <<- FALSE
+                              return(NULL)
+                    } else {
+                              logger::log_info('Consulta bem-sucedida.')
+                              if (dados$paginasRestantes == 0)
+                                        consulta <<- FALSE
+                              return(tibble::tibble(dados$data))
+                    }
+          } else {
+                    logger::log_error(
+                              'Ocorreu um erro na consulta dos Contratos. Código do erro: {resposta$status_code}.'
+                    )
+                    consulta <<- FALSE
+                    erro <<- TRUE
+                    return(NULL)
+          }
+}
+
+
+
 

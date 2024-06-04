@@ -4,7 +4,7 @@
 ```{r }
 #| include: false
 
-source('../src/organizar.R')
+source('src/organizar.R')
 
 organizado <- organizar.garantias()
 
@@ -17,7 +17,7 @@ Em resumo, há `r nrow(organizado)` garantias relacionadas a contratos no Tribun
 #| echo: false
 
 organizado |>
-  dplyr::group_by(Tipo, Situação) |>
+  dplyr::group_by(Tipo) |>
   dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
           kableExtra::kbl()
 
@@ -30,7 +30,7 @@ Abaixo segue a relação completa das garantias, mesmo expiradas, relativas aos 
 #| column: page
 #| include: false
 
-source('../src/formatar.R')
+source('src/formatar.R')
 
 formatado <- formatar.garantias()
 ```
@@ -45,9 +45,5 @@ formatado
 ```
 
 
-
-
 A lista de garantias pode ser [baixada em pdf](../saida/garantias.pdf), [em versão html](../saida/garantias.html) ou num [arquivo csv](../saida/garantias.csv).
-
-
 

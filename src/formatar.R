@@ -1,7 +1,7 @@
 
 
 formatar.terceirizados <- function() {
-          arquivo <- '../rds/terceirizados.rds'
+          arquivo <- 'rds/terceirizados.rds'
           dados <- readr::read_rds(arquivo)
           
           atualizado <- dados |> purrr::pluck('atualizado')
@@ -39,17 +39,17 @@ formatar.terceirizados <- function() {
           dados$formatado <- formatado
           readr::write_rds(dados, arquivo)
           
-          readr::write_csv2(organizado, '../saida/terceirizados.csv')
+          readr::write_csv2(organizado, 'saida/terceirizados.csv')
           
-          kableExtra::save_kable(formatado, '../saida/terceirizados.pdf')
+          kableExtra::save_kable(formatado, 'saida/terceirizados.pdf')
           
-          kableExtra::save_kable(formatado, '../saida/terceirizados.html')
+          kableExtra::save_kable(formatado, 'saida/terceirizados.html')
           
           return(formatado)
 }
 
 formatar.contratos <- function() {
-          arquivo <- '../rds/contratos.rds'
+          arquivo <- 'rds/contratos.rds'
           dados <- readr::read_rds(arquivo)
           
           atualizado <- dados |> purrr::pluck('atualizado')
@@ -69,6 +69,12 @@ formatar.contratos <- function() {
                       'Objeto')
           
           formatado <- organizado |>
+                    kableExtra::kbl(caption = paste0('Dados atualizados em ', atualizado),
+                                    align = 'lllllllr') |>
+                    kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+                    kableExtra::row_spec(0, align = 'c')
+          
+          formatado.interativo <- organizado |>
                     DT::datatable(
                               caption = htmltools::tags$caption(
                                         style = "caption-side: top; text-align: center;",
@@ -103,17 +109,17 @@ formatar.contratos <- function() {
           dados$formatado <- formatado
           readr::write_rds(dados, arquivo)
           
-          readr::write_csv2(organizado, '../saida/contratos.csv')
+          readr::write_csv2(organizado, 'saida/contratos.csv')
           
-          kableExtra::save_kable(formatado, '../saida/contratos.pdf')
+          kableExtra::save_kable(formatado, 'saida/contratos.pdf')
           
-          kableExtra::save_kable(formatado, '../saida/contratos.html')
+          kableExtra::save_kable(formatado, 'saida/contratos.html')
           
-          return(formatado)
+          return(formatado.interativo)
 }
 
 formatar.garantias <- function() {
-          arquivo <- '../rds/garantias.rds'
+          arquivo <- 'rds/garantias.rds'
           dados <- readr::read_rds(arquivo)
           
           atualizado <- dados |> purrr::pluck('atualizado')
@@ -150,17 +156,17 @@ formatar.garantias <- function() {
           dados$formatado <- formatado
           readr::write_rds(dados, arquivo)
           
-          readr::write_csv2(organizado, '../saida/garantias.csv')
+          readr::write_csv2(organizado, 'saida/garantias.csv')
           
-          kableExtra::save_kable(formatado, '../saida/garantias.pdf')
+          kableExtra::save_kable(formatado, 'saida/garantias.pdf')
           
-          kableExtra::save_kable(formatado, '../saida/garantias.html')
+          kableExtra::save_kable(formatado, 'saida/garantias.html')
           
           return(formatado)
 }
 
 formatar.combustiveis <- function() {
-          arquivo <- '../rds/combustiveis.rds'
+          arquivo <- 'rds/combustiveis.rds'
           dados <- readr::read_rds(arquivo)
           
           atualizado <- dados |> purrr::pluck('atualizado')
@@ -175,17 +181,17 @@ formatar.combustiveis <- function() {
           dados$formatado <- formatado
           readr::write_rds(dados, arquivo)
           
-          readr::write_csv2(organizado, '../saida/combustiveis.csv')
+          readr::write_csv2(organizado, 'saida/combustiveis.csv')
           
-          kableExtra::save_kable(formatado, '../saida/combustiveis.pdf')
+          kableExtra::save_kable(formatado, 'saida/combustiveis.pdf')
           
-          kableExtra::save_kable(formatado, '../saida/combustiveis.html')
+          kableExtra::save_kable(formatado, 'saida/combustiveis.html')
           
           return(formatado)
 }
 
 formatar.arquivos <- function() {
-          arquivo <- '../rds/arquivos.rds'
+          arquivo <- 'rds/arquivos.rds'
           dados <- readr::read_rds(arquivo)
           
           atualizado <- dados |> purrr::pluck('atualizado')
@@ -228,12 +234,72 @@ formatar.arquivos <- function() {
           dados$formatado <- formatado
           readr::write_rds(dados, arquivo)
           
-          readr::write_csv2(organizado, '../saida/arquivos.csv')
+          readr::write_csv2(organizado, 'saida/arquivos.csv')
           
-          kableExtra::save_kable(formatado, '../saida/arquivos.pdf')
+          kableExtra::save_kable(formatado, 'saida/arquivos.pdf')
           
-          kableExtra::save_kable(formatado, '../saida/arquivos.html')
+          kableExtra::save_kable(formatado, 'saida/arquivos.html')
           
           return(formatado)
 }
 
+formatar.pncp.atas <- function() {
+          arquivo <- 'rds/pncp.atas.rds'
+          dados <- readr::read_rds(arquivo)
+          
+          atualizado <- dados |> purrr::pluck('atualizado')
+          organizado <- dados |> purrr::pluck('organizado')
+          
+          formatado <- organizado |>
+                    dplyr::select(-Edital, -Ata) |> 
+                    kableExtra::kbl(caption = paste0('Dados atualizados em ', atualizado),
+                                    align = 'lllll') |>
+                    kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+                    kableExtra::row_spec(0, align = 'c') |> 
+                    kableExtra::column_spec(4, link = organizado$Edital) |> 
+                    kableExtra::column_spec(2, link = organizado$Ata)
+          
+          dados$formatado <- formatado
+          readr::write_rds(dados, arquivo)
+          
+          readr::write_csv2(organizado, 'saida/atas.csv')
+          
+          kableExtra::save_kable(formatado, 'saida/atas.pdf')
+          
+          kableExtra::save_kable(formatado, 'saida/atas.html')
+          
+          return(formatado)
+}
+
+formatar.pncp.publicacao <- function(modalidade = 'pregao') {
+          arquivo <- 'rds/pncp.publicacao.rds'
+          dados <- readr::read_rds(arquivo)
+          
+          # modalidade = 'pregao'
+          tipo = dplyr::case_when(
+                    modalidade == 'pregao' ~ 'Pregão - Eletrônico',
+                    modalidade == 'dispensabilidade' ~ 'Dispensa',
+                    modalidade == 'inexigibilidade' ~ 'Inexigibilidade'
+          )
+          
+          atualizado <- dados |> purrr::pluck('atualizado')
+          organizado <- dados |> purrr::pluck('organizado') |> 
+                    dplyr::filter(Modalidade == tipo)
+          
+          formatado <- organizado |>
+                    dplyr::select(-Edital, -Acompanhar) |> 
+                    kableExtra::kbl(caption = paste0('Dados atualizados em ', atualizado),
+                                    align = 'llllrr') |>
+                    kableExtra::kable_styling(bootstrap_options = 'stripe') |>
+                    kableExtra::row_spec(0, align = 'c') |> 
+                    kableExtra::column_spec(1:2, link = organizado$Edital) |> 
+                    kableExtra::column_spec(4, link = organizado$Acompanhar)
+          
+          readr::write_csv2(organizado, epoxy::epoxy('saida/{modalidade}.csv'))
+          
+          kableExtra::save_kable(formatado, epoxy::epoxy('saida/{modalidade}.pdf'))
+          
+          kableExtra::save_kable(formatado, epoxy::epoxy('saida/{modalidade}.html'))
+          
+          return(formatado)
+}

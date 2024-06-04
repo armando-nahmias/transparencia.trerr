@@ -1,5 +1,9 @@
 project:
   type: website
+  execute-dir: project
+  render: 
+    - index.qmd
+    - pagina/*.qmd
 
 website:
   title: "Portal da Transparência"
@@ -13,26 +17,10 @@ website:
         text: Monitoramento
       - text: Seções
         menu: 
-          - href: pagina/pagina.em.construcao.qmd #01.gestao.qmd
-            text: 01. Gestão
-          - href: pagina/pagina.em.construcao.qmd #02.sessoes.qmd
-            text: 02. Audiências e Sessões
-          - href: pagina/pagina.em.construcao.qmd #03.sic.qmd
-            text: 03. Serviço de Informação ao Cidadão
-          - href: pagina/pagina.em.construcao.qmd #04.ouvidoria.qmd
-            text: 04. Ouvidoria
-          - href: pagina/pagina.em.construcao.qmd #05.stic.qmd
-            text: 05. Tecnologia da Informação e Comunicação
           - href: pagina/pagina.em.construcao.qmd #06.orcamento.qmd
             text: 06. Gestão Orçamentária
           - href: pagina/7.0.licitacoes.contratos.qmd
             text: 07. Licitações, Contratos e Instrumentos de Cooperação
-          - href: pagina/pagina.em.construcao.qmd #08.pessoas.qmd
-            text: 08. Gestão de Pessoas
-          - href: pagina/pagina.em.construcao.qmd #09.auditoria.qmd
-            text: 09. Auditoria e Prestação de Contas
-          - href: pagina/pagina.em.construcao.qmd #10.sustentabilidade.qmd
-            text: 10. Sustentabilidade e Acessibilidade
 
 format:
   html:
@@ -41,4 +29,6 @@ format:
     toc: true
     
 execute:
-  freeze: false
+  echo: false
+  eval: true
+  

@@ -8,14 +8,14 @@ A atualização do Anexo V ocorre anualmente ou sempre que há modificação das
 ```{r }
 #| include: false
 
-source('../src/organizar.R')
+source('src/organizar.R')
 
 organizado <- organizar.terceirizados()
 
 ```
 
 
-Em resumo, os terceirizados estão distribuídos da seguinte forma:
+Atualmente, **há `r nrow(organizado)` terceirizados** estão distribuídos da seguinte forma:
 
 
 ```{r }
@@ -35,7 +35,7 @@ Abaixo, segue tabela contendo as informações relevantes sobre os terceirizados
 ```{r }
 #| include: false
 
-source('../src/formatar.R')
+source('src/formatar.R')
 
 formatado <- formatar.terceirizados()
 ```
@@ -50,15 +50,4 @@ formatado
 
 
 A tabela de terceirizados pode ser [baixada em pdf](../saida/terceirizados.pdf), [em versão html](../saida/terceirizados.html) ou num [arquivo csv](../saida/terceirizados.csv).
-
-
-```{r }
-#| echo: false
-
-# formatos <- c('pdf', 'html', 'csv')
-# 
-# cat('A tabela de terceirizados pode ser baixada ', epoxy::epoxy("em versão [{formato}](../saida/{formato}.qmd)", formato = formatos))
-
-
-```
 

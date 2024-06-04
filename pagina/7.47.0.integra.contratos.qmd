@@ -4,7 +4,7 @@
 ```{r }
 #| include: false
 
-source('../src/organizar.R')
+source('src/organizar.R')
 
 organizado.arquivos <- organizar.arquivos()
 
@@ -16,7 +16,7 @@ Abaixo constam os endereços dos arquivos integrais dos contratos e termos aditi
 #| include: false
 
 
-source('../src/formatar.R')
+source('src/formatar.R')
 formatado <- formatar.arquivos()
 
 ```

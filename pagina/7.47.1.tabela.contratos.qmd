@@ -4,7 +4,7 @@
 ```{r }
 #| include: false
 
-source('../src/organizar.R')
+source('src/organizar.R')
 
 organizado.contratos <- organizar.contratos()
 
@@ -30,7 +30,7 @@ Abaixo segue a relação completa dos contratos ativos do Tribunal Regional Elei
 ```{r }
 #| include: false
 
-source('../src/formatar.R')
+source('src/formatar.R')
 
 formatado <- formatar.contratos()
 ```
@@ -44,7 +44,7 @@ formatado
 ```
 
 
-A lista de contratos pode ser [baixada em pdf](../saida/contratos.seges.tabela.pdf), [em versão html](../saida/contratos.seges.tabela.html) ou num [arquivo csv](../saida/contratos.seges.tabela.csv).
+A lista de contratos pode ser [baixada em pdf](../saida/contratos.pdf), [em versão html](../saida/contratos.html) ou num [arquivo csv](../saida/contratos.csv).
 
 
 

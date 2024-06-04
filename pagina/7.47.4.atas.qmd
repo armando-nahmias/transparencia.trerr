@@ -1,0 +1,50 @@
+## 47.4. Atas de Registros de Preços
+
+
+```{r }
+#| include: false
+
+source('src/organizar.R')
+
+organizado <- organizar.pncp.atas()
+
+```
+
+Em resumo, há `r nrow(organizado)` ARP no Tribunal Regional Eleitoral de Roraima, assim distribuídos:
+
+``` {r}
+#| echo: false
+
+organizado |>
+  dplyr::group_by(Ano) |>
+  dplyr::summarise(Quantidade = dplyr::n(), .groups = 'drop') |>
+          kableExtra::kbl()
+
+
+```
+
+Abaixo segue a relação completa das ARP do Tribunal Regional Eleitoral de Roraima.
+
+```{r }
+#| column: page
+#| include: false
+
+source('src/formatar.R')
+
+formatado <- formatar.pncp.atas()
+```
+
+
+```{r }
+#| column: page
+#| echo: false
+
+
+formatado
+```
+
+
+A lista de garantias pode ser [baixada em pdf](../saida/atas.pdf), [em versão html](../saida/atas.html) ou num [arquivo csv](../saida/atas.csv).
+
+
+

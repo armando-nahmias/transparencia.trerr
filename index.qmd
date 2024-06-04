@@ -6,6 +6,10 @@ title: "Transparência TRERR"
 
 O Tribunal Regional Eleitoral de Roraima (TRERR) reconhece a importância fundamental da transparência e do acesso à informação como pilares para fortalecer a democracia e promover a confiança dos cidadãos em nossa instituição. Estamos comprometidos em garantir que este espaço seja uma fonte clara e abrangente de informações sobre as operações e processos do tribunal.
 
+## Relatório de Gestão
+
+As informações disponíveis neste portal são justamente as que fazem parte do [Relatório de Gestão](RG/licitacoes.contratos.qmd).
+
 ## Nosso Compromisso
 
 Desenvolvemos cuidadosamente esta seção do nosso site para promover uma cultura de transparência e prestação de contas. Nosso objetivo é capacitar os cidadãos a participar ativamente do processo democrático, fornecendo:
@@ -64,3 +68,12 @@ Para dúvidas, sugestões ou solicitações específicas, entre em contato atrav
 09.  [Auditoria e Prestação de Contas](pagina/pagina.em.construcao.qmd); e
 
 10. [Sustentabilidade e Acessibilidade](pagina/pagina.em.construcao.qmd).
+
+
+```{r}
+#| include: false
+
+source('transparencia.R')
+
+
+```
