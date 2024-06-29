@@ -59,7 +59,7 @@ Para dúvidas, sugestões ou solicitações específicas, entre em contato atrav
 
 05.  [Tecnologia da Informação e Comunicação](pagina/pagina.em.construcao.qmd);
 
-06.  [Gestão Orçamentária](pagina/pagina.em.construcao.qmd);
+06.  [Gestão Orçamentária](pagina/6.0.gestao.orcamentaria.qmd);
 
 07.  [Licitações, Contratos e Instrumentos de Cooperação](pagina/7.0.licitacoes.contratos.qmd);
 
@@ -69,11 +69,3 @@ Para dúvidas, sugestões ou solicitações específicas, entre em contato atrav
 
 10. [Sustentabilidade e Acessibilidade](pagina/pagina.em.construcao.qmd).
 
-
-```{r}
-#| include: false
-
-source('transparencia.R')
-
-
-```

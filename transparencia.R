@@ -23,3 +23,5 @@ importar.pncp.recursos()
 
 importar.pncp.publicacao()
 
+importar.execucao.detalhada()
+
