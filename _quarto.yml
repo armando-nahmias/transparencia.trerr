@@ -29,6 +29,7 @@ format:
     toc: true
     
 execute:
+  freeze: true
   echo: false
   eval: true
   

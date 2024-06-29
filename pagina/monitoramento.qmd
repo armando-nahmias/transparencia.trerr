@@ -3,6 +3,15 @@
 Estamos comprometidos em manter este Portal atualizado regularmente, apresentando as informações de forma clara e acessível. Assim, abaixo é apresentada uma tabela com todos os itens incluídos no portal e a data em que os dados correspondentes foram atualizados.
 
 
+```{r}
+#| include: false
+
+source('transparencia.R')
+
+
+```
+
+
 ```{r include=FALSE}
 
 # monitoramento <-

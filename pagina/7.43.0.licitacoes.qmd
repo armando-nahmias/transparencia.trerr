@@ -27,7 +27,6 @@ organizado |>
 Abaixo segue a relação completa das licitações publicadas pelo Tribunal Regional Eleitoral de Roraima.
 
 ```{r }
-#| column: page
 #| include: false
 
 source('src/formatar.R')
