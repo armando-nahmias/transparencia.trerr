@@ -1,0 +1,15 @@
+{
+  "hash": "76d4a5d28abaf8e5d5a70a5e697383c3",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Sexta Seção: Gestão Orçamentária\n\nA transparência na gestão orçamentária e financeira é um pilar fundamental para o Tribunal Regional Eleitoral de Roraima (TRERR). Esta seção é dedicada a fornecer informações detalhadas sobre nossas operações orçamentárias, em conformidade com as normativas e resoluções pertinentes, incluindo a Resolução CNJ nº 102/2009.\n\n## 33. Gestão Orçamentária e Financeira - Anexo I da Resolução CNJ nº 102/2009\n\n\n\n\nPara uma visão completa dos dados mensais de nossa gestão orçamentária e financeira, [consulte os Dados Mensais do Anexo I](pagina.em.construcao.qmd).  \n<!-- Endereço original: 06.gestao.orcamentaria/33.gestao.orcamentaria.anexoI.qmd -->\n\n## 34. Gestão Orçamentária e Financeira - Anexo II da Resolução CNJ nº 102/2009\n\nComplementando o Anexo I, os dados mensais seguindo o formato do Anexo II reforçam nosso compromisso com a clareza e a responsabilidade fiscal. [Veja os dados complementares aqui](pagina.em.construcao.qmd).  \n<!-- Endereço original: 06.gestao.orcamentaria/34.gestao.orcamentaria.anexoII.qmd -->\n\n## 37. Mapa Demonstrativo da Execução Orçamentária do Ano Anterior\n\nEmbora os TREs tenham especificidades, disponibilizamos o Mapa Demonstrativo da Execução Orçamentária do ano anterior, detalhando as despesas realizadas para promover nossa transparência e gestão responsável. [Confira o mapa demonstrativo](pagina.em.construcao.qmd).  \n<!-- Endereço original: 06.gestao.orcamentaria/37.execucao.orcamentaria.ano.anterior.qmd -->\n\n## 38. Relatório de Gestão Fiscal\n\nO Relatório de Gestão Fiscal, alinhado à Lei de Responsabilidade Fiscal, detalha a execução orçamentária e financeira do TRERR, sendo um documento chave para a transparência e controle social. [Leia o relatório completo aqui](pagina.em.construcao.qmd).  \n<!-- Endereço original: 06.gestao.orcamentaria/38.relatorio.gestao.fiscal.qmd -->\n\n## 40. Relação dos Contratados\nVisando garantir a transparência total nas contratações e gastos públicos, disponibilizamos a relação dos contratados nos últimos três anos, excluindo informações protegidas por sigilo. [Consulte a relação dos contratados](pagina.em.construcao.qmd).  \n<!-- Endereço original: 06.gestao.orcamentaria/40.relacao.contratados.qmd -->\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

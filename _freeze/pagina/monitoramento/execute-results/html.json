@@ -1,0 +1,15 @@
+{
+  "hash": "18575b911c6ae5800f0ed93c0bbae426",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Monitoramento\n\nEstamos comprometidos em manter este Portal atualizado regularmente, apresentando as informações de forma clara e acessível. Assim, abaixo é apresentada uma tabela com todos os itens incluídos no portal e a data em que os dados correspondentes foram atualizados.\n\n\n\n\n\n\n\n::: {.cell}\n\n:::\n\n\nAbaixo, oportunamente, será apresentada uma tabela com todos os dados incluídos no portal e a data em que os dados correspondentes foram atualizados.\n\n\n\n::: {.cell .column-page}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
